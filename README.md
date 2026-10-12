@@ -12,7 +12,7 @@ Merge multiple PDF files into one document — entirely in your browser. Your fi
 
 ## How to use
 
-1. Open [http://combinepdf.makertechnologies.at/](http://combinepdf.makertechnologies.at/) (or run the app locally — see below).
+1. Open [https://combinepdf.makertechnologies.at/](http://combinepdf.makertechnologies.at/) (or run the app locally — see below).
 2. Drop PDFs anywhere on the page, or use **Choose files** / **Choose folder**.
 3. Drag tiles in the gallery to set merge order. Remove individual files or clear the list as needed.
 4. Optionally set an output filename, then merge and download (or use Save As where the browser supports it).
