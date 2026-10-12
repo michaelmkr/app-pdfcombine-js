@@ -1,0 +1,14 @@
+# Coolify / Nixpacks: build static SPA, serve dist/ only.
+# PDFs are never processed on the server.
+
+[phases.setup]
+nixPkgs = ["nodejs_22"]
+
+[phases.install]
+cmds = ["npm ci"]
+
+[phases.build]
+cmds = ["npm run build"]
+
+[start]
+cmd = "npm start"

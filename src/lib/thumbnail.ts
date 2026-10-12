@@ -1,0 +1,52 @@
+import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist'
+import pdfWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url'
+
+GlobalWorkerOptions.workerSrc = pdfWorker
+
+/** Target thumbnail width in CSS pixels (low scale for ~30–50 files). */
+const THUMB_WIDTH = 140
+
+/**
+ * Render the first page of a PDF to a blob URL thumbnail.
+ * Uses a copy of `bytes` so pdf.js cannot transfer ownership of the merge buffer.
+ * Returns null on failure (caller should show a placeholder).
+ */
+export async function renderFirstPageThumbnail(
+  bytes: ArrayBuffer,
+): Promise<string | null> {
+  try {
+    const data = new Uint8Array(bytes.slice(0))
+    const loadingTask = getDocument({ data, disableAutoFetch: true })
+    const pdf = await loadingTask.promise
+    const page = await pdf.getPage(1)
+
+    const base = page.getViewport({ scale: 1 })
+    const scale = THUMB_WIDTH / base.width
+    const viewport = page.getViewport({ scale })
+
+    const canvas = document.createElement('canvas')
+    canvas.width = Math.max(1, Math.floor(viewport.width))
+    canvas.height = Math.max(1, Math.floor(viewport.height))
+    const ctx = canvas.getContext('2d')
+    if (!ctx) {
+      await pdf.cleanup()
+      return null
+    }
+
+    await page.render({ canvas, canvasContext: ctx, viewport }).promise
+    await pdf.cleanup()
+
+    const blob = await new Promise<Blob | null>((resolve) =>
+      canvas.toBlob(resolve, 'image/jpeg', 0.72),
+    )
+    if (!blob) return null
+    return URL.createObjectURL(blob)
+  } catch (err) {
+    console.warn('Thumbnail render failed', err)
+    return null
+  }
+}
+
+export function revokeThumbnail(url: string | null | undefined): void {
+  if (url) URL.revokeObjectURL(url)
+}
