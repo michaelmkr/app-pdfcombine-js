@@ -1,7 +1,5 @@
-import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist'
-import pdfWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url'
-
-GlobalWorkerOptions.workerSrc = pdfWorker
+import { getDocument } from 'pdfjs-dist'
+import { ensurePdfWorker } from './pdfWorker'
 
 /** Target thumbnail width in CSS pixels (low scale for ~30–50 files). */
 const THUMB_WIDTH = 140
@@ -9,14 +7,22 @@ const THUMB_WIDTH = 140
 /**
  * Render the first page of a PDF to a blob URL thumbnail.
  * Uses a copy of `bytes` so pdf.js cannot transfer ownership of the merge buffer.
+ * All work is in-memory; no network fetches (fonts/cmaps/wasm URLs unset).
  * Returns null on failure (caller should show a placeholder).
  */
 export async function renderFirstPageThumbnail(
   bytes: ArrayBuffer,
 ): Promise<string | null> {
+  ensurePdfWorker()
   try {
     const data = new Uint8Array(bytes.slice(0))
-    const loadingTask = getDocument({ data, disableAutoFetch: true })
+    const loadingTask = getDocument({
+      data,
+      disableAutoFetch: true,
+      disableStream: true,
+      useSystemFonts: true,
+      // Do not set cMapUrl / standardFontDataUrl / wasmUrl — those would fetch remotely.
+    })
     const pdf = await loadingTask.promise
     const page = await pdf.getPage(1)
 
@@ -40,6 +46,7 @@ export async function renderFirstPageThumbnail(
       canvas.toBlob(resolve, 'image/jpeg', 0.72),
     )
     if (!blob) return null
+    // blob: URLs are local memory only — they appear in DevTools Network but never leave the device.
     return URL.createObjectURL(blob)
   } catch (err) {
     console.warn('Thumbnail render failed', err)

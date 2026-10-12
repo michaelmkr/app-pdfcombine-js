@@ -7,8 +7,21 @@ Merge multiple PDF files into one document — entirely in your browser. Your fi
 ## Privacy & security
 
 - **No uploads.** PDFs are read and merged in the browser only. There is no upload API and no server-side PDF processing.
-- **Client-side libraries.** Merging uses [pdf-lib](https://pdf-lib.js.org/); first-page thumbnails use [PDF.js](https://mozilla.github.io/pdf.js/).
+- **Client-side libraries.** Merging uses [pdf-lib](https://pdf-lib.js.org/); first-page thumbnails use [PDF.js](https://mozilla.github.io/pdf.js/) with a bundled worker (no third-party CDN).
+- **Hardened production CSP.** The built app sets `connect-src 'none'`, which blocks `fetch` / XHR / WebSockets — so the page cannot upload your files even by accident.
 - **Static hosting.** A deployed instance only serves HTML, CSS, and JavaScript. Closing the tab clears in-memory file data.
+
+### About the browser Network tab
+
+After you add PDFs you may see many entries. That is **not** your PDFs leaving the device:
+
+| What you see | What it actually is |
+|--------------|---------------------|
+| `blob:https://…` (JPEG, ~0 kB) | Local in-memory thumbnail URLs (`URL.createObjectURL`). Same-origin appearance only; no upload. |
+| `pdf.worker…` (often 304 / cached) | The app’s own PDF.js worker script from Coolify, not your document bytes. |
+| Chrome extension scripts | Browser extensions — unrelated to this app. |
+
+The only normal network use is **downloading the app** (HTML/JS/CSS) when you open the site. Your PDF bytes never leave the browser.
 
 ## How to use
 
