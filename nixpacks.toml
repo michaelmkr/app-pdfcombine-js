@@ -1,4 +1,5 @@
 # Coolify / Nixpacks: build static SPA, serve dist/ only.
+# Prefer Coolify "static site" with Publish Directory = dist (Caddy).
 # PDFs are never processed on the server.
 
 [phases.setup]
@@ -10,5 +11,6 @@ cmds = ["npm ci"]
 [phases.build]
 cmds = ["npm run build"]
 
+# Used only for non-static / Node deployments.
 [start]
 cmd = "npm start"

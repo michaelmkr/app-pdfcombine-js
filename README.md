@@ -46,10 +46,20 @@ Optional: `npm run preview` to preview the production build with Vite.
 
 ## Deploy (Coolify / Nixpacks)
 
-This app is a **static SPA**. Coolify (or any static host) only needs to build and serve `dist/`.
+This app is a **static SPA**. Prefer Coolify’s **static site** mode so Caddy serves `dist/` (no Node process at runtime).
 
-1. Point the platform at this repository (Nixpacks works out of the box via `nixpacks.toml`).
-2. Build: `npm run build`
-3. Start: `npm start` → serves `dist/` with [`serve`](https://www.npmjs.com/package/serve)
+Suggested Coolify settings:
 
-Set `PORT` if your platform requires it (default `3000`). The Node process only serves static assets; PDFs are never processed on the server.
+| Setting | Value |
+|---------|--------|
+| Build Pack | Nixpacks |
+| Is it a static site? | Yes |
+| Install Command | `npm install` |
+| Build Command | `npm run build` |
+| Start Command | *(leave empty for static)* |
+| Publish Directory | `dist` |
+| Ports Exposes | *(Coolify static default; often unused)* |
+
+If you deploy as a Node app instead (non-static), use Start Command `npm start` and port `3000`. That only serves static files from `dist/`; PDFs are never processed on the server.
+
+`nixpacks.toml` in the repo documents the same build/start flow.
