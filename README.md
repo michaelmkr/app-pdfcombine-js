@@ -85,3 +85,25 @@ Suggested Coolify settings:
 If you deploy as a Node app instead (non-static), use Start Command `npm start` and port `3000`. That only serves static files from `dist/`; PDFs are never processed on the server.
 
 `nixpacks.toml` in the repo documents the same build/start flow.
+
+## License
+
+This project's **own source code** is licensed under the [PolyForm Noncommercial License 1.0.0](LICENSE) (`PolyForm-Noncommercial-1.0.0`).
+
+**You may:** view, fork, study, modify, and use the code for personal, educational, research, hobby, and other noncommercial purposes (including use by many noncommercial organizations — see the license).
+
+**You may not:** use this project's code for commercial purposes under this license.
+
+This is **source-available**, not [OSI Open Source](https://opensource.org/osd): OSI Open Source requires allowing commercial use. A noncommercial-only license intentionally does not meet that definition.
+
+### Third-party dependencies
+
+Dependencies keep their **own** licenses. This LICENSE does **not** relicense React, pdf-lib, PDF.js, dnd-kit, Vite, fonts, or other packages. Notable direct dependencies:
+
+| Package | License |
+|---------|---------|
+| react, react-dom, pdf-lib, @dnd-kit/*, serve, vite, oxlint, … | MIT |
+| pdfjs-dist (PDF.js), typescript | Apache-2.0 |
+| @fontsource/montserrat, @fontsource/playfair-display | OFL-1.1 |
+
+When you redistribute a build that includes those libraries, retain their copyright and license notices as their licenses require.
