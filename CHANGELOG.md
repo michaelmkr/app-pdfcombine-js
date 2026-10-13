@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `html lang="de"`; trust hero + FAQ copy tuned for kombinieren/mergen/ohne Upload while keeping PolyForm NC and privacy guardrails
 - Trust copy capitalizes **DSGVO-freundlich**; SEO notes document catch-up backlog and CSP/schema ops
 - Controller SEO/GEO loop decisions + reality check in `docs/seo-geo/controller-log.md` (trust UI over stuffing; no dual schema mirror)
+- Round 2 SEO follow-up: verified production JSON-LD inject + matching CSP sha256; README discoverability links confirmed; author `sameAs` deferred (no GitHub URL in README); notes in `docs/seo-geo/seo-notes.md`
 
 ### Fixed
 

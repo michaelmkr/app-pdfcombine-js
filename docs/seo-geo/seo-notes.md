@@ -2,11 +2,26 @@
 
 Classic search / SERP / crawler notes (Google, Bing, social previews). For assistant citeability see [`geo-notes.md`](./geo-notes.md).
 
-**Last updated:** 2026-10-13 (SEO catch-up pass)  
+**Last updated:** 2026-10-13 (Round 2 follow-up)  
 **Live URL:** https://combinepdf.makertechnologies.at/  
 **Official name:** PDF Kombinierer  
 **Author:** Michael Macher — https://michaelmacher.com/  
 **License:** PolyForm Noncommercial 1.0.0 (source-available; not OSI Open Source)
+
+---
+
+## Round 2 follow-up (2026-10-13)
+
+Short controller-assigned pass — no ranking claims.
+
+| Item | Result |
+|------|--------|
+| Production `npm run build` → `dist/index.html` | **OK:** `application/ld+json` injected from `src/seo/structuredData.json`; CSP `script-src` includes matching `sha256-…`; `connect-src 'none'` intact; no `unsafe-inline` on scripts |
+| README discoverability | **OK as-is:** live URL + `llms.txt` / `llms-full.txt` + `docs/seo-geo` SEO/GEO notes (no bloat added) |
+| CHANGELOG `[Unreleased]` SEO bullets | Reviewed; kept claim-safe; noted this verify-only follow-up |
+| Author `sameAs` | **Skipped** — michaelmacher.com is in README, but no GitHub repo URL appears in README |
+
+No keywords meta, analytics, Remotion, or CSP weakening.
 
 ---
 
