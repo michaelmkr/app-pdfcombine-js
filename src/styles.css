@@ -24,13 +24,13 @@
   --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
   /* Dense tile boards: fluid min so ultrawide gets many columns; phones stay ~2–3 */
   --tile-min: clamp(120px, 11vw, 180px);
-  /* One centered column for empty + filled (shell, header, main, merge-bar) */
+  /* Centered column for header, add-more, merge-bar (and empty-state hero) */
   --content-max: min(1400px, 96vw);
   --merge-bar-space: 5.75rem;
   --page-pad-x: clamp(1rem, 2.5vw, 2rem);
   --page-pad-top: clamp(1.5rem, 3vw, 2.5rem);
-  /* Gallery gutters when filled; ~2× former edge-hugging pad */
-  --board-pad-x: clamp(2rem, 3vw, 3rem);
+  /* Gallery nearly full-bleed; thumb-width side margins only */
+  --gallery-pad-x: clamp(0.5rem, 1vw, 1rem);
   --warn: #8a5a00;
   --warn-bg: #fbf3e0;
   --warn-border: #e6d4a8;
@@ -115,11 +115,6 @@ input {
 .app--empty {
   /* Fill viewport: header + hero stage + compact footer above merge bar */
   min-height: 100dvh;
-}
-
-/* Filled: keep the same centered --content-max as empty; roomier side gutters */
-.app--filled {
-  --page-pad-x: var(--board-pad-x);
 }
 
 .app__atmosphere {
@@ -718,10 +713,16 @@ input {
 }
 
 /* —— Gallery —— */
+/* Break out of .app’s --content-max so the grid can use nearly the full viewport */
 
 .pdf-list {
   flex: 1 0 auto;
   min-width: 0;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding-inline: var(--gallery-pad-x);
+  box-sizing: border-box;
 }
 
 .pdf-list__header {
@@ -1185,7 +1186,7 @@ input {
     --merge-bar-space: 12.75rem;
     --page-pad-x: 1rem;
     --page-pad-top: 1.35rem;
-    --board-pad-x: 1.25rem;
+    --gallery-pad-x: 0.5rem;
   }
 
   .app__header h1 {
