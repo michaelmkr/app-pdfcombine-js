@@ -3,19 +3,25 @@ import { useRef } from 'react'
 type DropZoneProps = {
   onFiles: (files: FileList | File[]) => void
   disabled?: boolean
+  /** Compact strip when the merge queue already has files */
+  compact?: boolean
 }
 
 /** Secondary add controls — global window drop handles drag-and-drop. */
-export function DropZone({ onFiles, disabled }: DropZoneProps) {
+export function DropZone({ onFiles, disabled, compact }: DropZoneProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const folderInputRef = useRef<HTMLInputElement>(null)
 
+  const className = [
+    'dropzone',
+    compact ? 'dropzone--compact' : 'dropzone--hero',
+    disabled ? 'dropzone--disabled' : '',
+  ]
+    .filter(Boolean)
+    .join(' ')
+
   return (
-    <div
-      className={`dropzone${disabled ? ' dropzone--disabled' : ''}`}
-      role="region"
-      aria-label="Add PDF files"
-    >
+    <div className={className} role="region" aria-label="Add PDF files">
       <div className="dropzone__visual" aria-hidden="true">
         <svg
           className="dropzone__glyph"
@@ -49,15 +55,21 @@ export function DropZone({ onFiles, disabled }: DropZoneProps) {
         </svg>
       </div>
       <div className="dropzone__copy">
-        <p className="dropzone__title">Drop PDFs anywhere on this page</p>
+        <p className="dropzone__title">
+          {compact
+            ? 'Add more PDFs'
+            : 'Drop PDFs anywhere on this page'}
+        </p>
         <p className="dropzone__hint">
-          or choose files from your device — nothing is uploaded
+          {compact
+            ? 'or choose files / a folder — nothing is uploaded'
+            : 'Your merge queue is empty. Choose files or a folder — nothing leaves this device.'}
         </p>
       </div>
       <div className="dropzone__actions">
         <button
           type="button"
-          className="btn btn--primary btn--lg"
+          className={`btn btn--primary${compact ? '' : ' btn--lg'}`}
           disabled={disabled}
           onClick={() => fileInputRef.current?.click()}
         >

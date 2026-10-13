@@ -56,17 +56,7 @@ export function PdfList({
     onReorder(String(active.id), String(over.id))
   }
 
-  if (items.length === 0) {
-    return (
-      <div className="pdf-list__empty" role="status">
-        <p className="pdf-list__empty-title">Your merge queue is empty</p>
-        <p className="pdf-list__empty-hint">
-          Drop PDFs anywhere, or use Choose files above. Order, expand pages,
-          then merge — all on this device.
-        </p>
-      </div>
-    )
-  }
+  if (items.length === 0) return null
 
   const fileCount = new Set(items.map((i) => i.docId)).size
   const totalPages = countMergePages(items, docsById)

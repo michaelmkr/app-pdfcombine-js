@@ -344,8 +344,10 @@ export default function App() {
     }
   }, [docsById, items, filename, pageCount])
 
+  const hasFiles = items.length > 0
+
   return (
-    <div className="app">
+    <div className={`app${hasFiles ? ' app--filled' : ' app--empty'}`}>
       <GlobalDropOverlay onFiles={handleFiles} disabled={busy} />
 
       <div className="app__atmosphere" aria-hidden="true" />
@@ -359,7 +361,11 @@ export default function App() {
       </header>
 
       <main className="app__main">
-        <DropZone onFiles={handleFiles} disabled={busy} />
+        <DropZone
+          onFiles={handleFiles}
+          disabled={busy}
+          compact={hasFiles}
+        />
         <StatusBanner status={status} />
         <WarningList
           skipped={skipped}
