@@ -9,6 +9,7 @@ import { TrustHero } from './components/TrustHero'
 import { TrustFooter } from './components/TrustFooter'
 import { StatusBanner } from './components/StatusBanner'
 import { WarningList } from './components/WarningList'
+import { AUTHOR_URL } from './lib/imprint'
 import {
   loadPdfFiles,
   revokeDocThumbnails,
@@ -353,7 +354,16 @@ export default function App() {
       <div className="app__atmosphere" aria-hidden="true" />
 
       <header className="app__header">
-        <p className="app__eyebrow">von Michael Macher</p>
+        <p className="app__eyebrow">
+          von{' '}
+          <a
+            href={AUTHOR_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Michael Macher
+          </a>
+        </p>
         <h1>
           PDF <span className="app__accent">Kombinierer</span>
         </h1>

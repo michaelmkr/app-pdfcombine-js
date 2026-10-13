@@ -1,6 +1,6 @@
 # PDF Kombinierer
 
-**PDF Kombinierer** von Michael Macher — combine several PDFs into one file on your computer. Your documents are never uploaded. Other online tools send your files to their servers (sometimes including AI processing); this one does not.
+**PDF Kombinierer** von [Michael Macher](https://michaelmacher.com/) — combine several PDFs into one file on your computer. Your documents are never uploaded. Other online tools send your files to their servers (sometimes including AI processing); this one does not.
 
 **Live app:** [https://combinepdf.makertechnologies.at/](https://combinepdf.makertechnologies.at/)
 
