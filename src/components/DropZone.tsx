@@ -16,12 +16,48 @@ export function DropZone({ onFiles, disabled }: DropZoneProps) {
       role="region"
       aria-label="Add PDF files"
     >
-      <p className="dropzone__title">Drop PDFs anywhere on this page</p>
-      <p className="dropzone__hint">or choose files from your device</p>
+      <div className="dropzone__visual" aria-hidden="true">
+        <svg
+          className="dropzone__glyph"
+          width="48"
+          height="48"
+          viewBox="0 0 48 48"
+        >
+          <rect
+            x="10"
+            y="6"
+            width="22"
+            height="28"
+            rx="2"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          />
+          <path
+            d="M26 6v8h8"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M28 22h12M34 16v12"
+            stroke="currentColor"
+            strokeWidth="2.25"
+            strokeLinecap="round"
+          />
+        </svg>
+      </div>
+      <div className="dropzone__copy">
+        <p className="dropzone__title">Drop PDFs anywhere on this page</p>
+        <p className="dropzone__hint">
+          or choose files from your device — nothing is uploaded
+        </p>
+      </div>
       <div className="dropzone__actions">
         <button
           type="button"
-          className="btn btn--primary"
+          className="btn btn--primary btn--lg"
           disabled={disabled}
           onClick={() => fileInputRef.current?.click()}
         >
@@ -29,7 +65,7 @@ export function DropZone({ onFiles, disabled }: DropZoneProps) {
         </button>
         <button
           type="button"
-          className="btn btn--ghost"
+          className="btn btn--secondary"
           disabled={disabled}
           onClick={() => folderInputRef.current?.click()}
           title="Select a folder (Chrome / Edge)"

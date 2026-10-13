@@ -58,7 +58,13 @@ export function PdfList({
 
   if (items.length === 0) {
     return (
-      <p className="pdf-list__empty">No PDFs added yet. Drop or choose files above.</p>
+      <div className="pdf-list__empty" role="status">
+        <p className="pdf-list__empty-title">Your merge queue is empty</p>
+        <p className="pdf-list__empty-hint">
+          Drop PDFs anywhere, or use Choose files above. Order, expand pages,
+          then merge — all on this device.
+        </p>
+      </div>
     )
   }
 

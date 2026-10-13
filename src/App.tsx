@@ -348,7 +348,10 @@ export default function App() {
     <div className="app">
       <GlobalDropOverlay onFiles={handleFiles} disabled={busy} />
 
+      <div className="app__atmosphere" aria-hidden="true" />
+
       <header className="app__header">
+        <p className="app__eyebrow">Michael Macher · lokal</p>
         <h1>
           Local PDF <span className="app__accent">Combiner</span>
         </h1>
