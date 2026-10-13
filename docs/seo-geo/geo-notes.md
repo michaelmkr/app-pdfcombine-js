@@ -65,7 +65,7 @@ Clarify “online”: the *app* is loaded from the web; *PDF contents* never upl
 | `src/lib/geoContent.ts` | Shared live URL constant (localized GEO copy lives in i18n) |
 | `src/seo/structuredData.json` | WebApplication + WebSite + FAQPage JSON-LD (DE+EN core FAQ with `inLanguage`; must match `de.geo.faq` / `en.geo.faq`) |
 | Vite CSP plugin | Injects JSON-LD with `script-src` **sha256** allowlist — CSP stays strict (`connect-src 'none'`) |
-| `index.html` meta | `lang="de"` default shell, author, canonical, `hreflang` de+en+x-default (same URL), Open Graph / Twitter, llms alternate; bilingual `<noscript>` |
+| `index.html` meta | `lang="de"` default shell, author, canonical, `hreflang` de+x-default (no same-URL `en`), Open Graph / Twitter, llms alternate; bilingual `<noscript>` |
 | Footer + FAQ links | Discoverability of `/llms.txt` and `/llms-full.txt` |
 | LanguageSwitcher | Users switch full UI DE/EN; preference in `localStorage` |
 
