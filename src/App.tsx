@@ -106,7 +106,9 @@ export default function App() {
       <GlobalDropOverlay onFiles={handleFiles} disabled={busy} />
 
       <header className="app__header">
-        <h1>Local PDF Combiner</h1>
+        <h1>
+          Local PDF <span className="app__accent">Combiner</span>
+        </h1>
         <p className="app__privacy">
           Files never leave your device. Merging runs entirely in your browser —
           nothing is uploaded to a server.
