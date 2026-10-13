@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SEO first pass: keyword title/description, canonical, hreflang, Open Graph/Twitter, `og-image.png`, `robots.txt`, `sitemap.xml`, FAQPage/WebApplication JSON-LD (CSP-hashed inject), notes in `docs/seo-geo/seo-notes.md`
 - GEO first pass: `public/llms.txt` + `llms-full.txt`, on-page facts/FAQ (`GeoFaq` + `geoContent.ts`), notes in `docs/seo-geo/geo-notes.md`
 - JS-off `<noscript>` summary in `index.html` (entity, privacy, limits, llms links)
+- GEO Round 2: concise English summary section in `llms-full.txt` for EN-first assistants (DE remains primary)
 
 ### Changed
 
@@ -19,8 +20,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Trust copy capitalizes **DSGVO-freundlich**; SEO notes document catch-up backlog and CSP/schema ops
 - Controller SEO/GEO loop decisions + reality check in `docs/seo-geo/controller-log.md` (trust UI over stuffing; no dual schema mirror)
 - Round 2 SEO follow-up: verified production JSON-LD inject + matching CSP sha256; README discoverability links confirmed; author `sameAs` deferred (no GitHub URL in README); notes in `docs/seo-geo/seo-notes.md`
+- GEO Round 2: expanded `<noscript>` what/why/how/limits; `geo-notes.md` Round 2 follow-up subsection
 
 ### Fixed
+
+- GEO Round 2: spot-aligned `llms-full.txt` FAQ claims with `geoContent.ts` / FAQPage (shared Q&As)
 
 ## [1.0.0] - 2026-10-13
 

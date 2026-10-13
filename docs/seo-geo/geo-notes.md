@@ -2,10 +2,25 @@
 
 Generative Engine Optimization notes for AI answers (Google AI Overviews, ChatGPT, Perplexity, etc.), not classic blue-link SEO alone.
 
-**Last updated:** 2026-10-13 (first pass)  
+**Last updated:** 2026-10-13 (Round 2 follow-up)  
 **Live URL:** https://combinepdf.makertechnologies.at/  
 **Official name:** PDF Kombinierer  
 **Author:** Michael Macher — https://michaelmacher.com/
+
+---
+
+## Round 2 follow-up
+
+Small citeability pass after controller Round 1 (no UI redesign, no analytics, CSP unchanged):
+
+| Gap | Action |
+|-----|--------|
+| FAQ claim drift | Spot-aligned `llms-full.txt` FAQ with `GEO_FAQ` / FAQPage (shared Q&As match; kept short extras: KI-Upload, author) |
+| EN-first assistants | Concise **English summary** section in `llms-full.txt` (DE primary; no fake EN landing page / no `llms-en.txt`) |
+| JS-off discoverability | Expanded `index.html` `<noscript>` with compact what / why / how / limits (not a second UI) |
+| Docs | This subsection + CHANGELOG `[Unreleased]` GEO bullets |
+
+Still backlog: full static FAQ prerender, automated sync lint, author `sameAs`.
 
 ---
 
@@ -85,9 +100,9 @@ Clarify “online”: the *app* is loaded from the web; *PDF contents* never upl
 
 ### P1 — citeability & crawl
 
-- [ ] **Prerender or static FAQ HTML** in `index.html` (or build step) so what/why/how/limits body text exists without JS
-- [ ] **Keep llms*.txt ↔ geoContent.ts ↔ structuredData.json** in sync (lint check or shared codegen)
-- [ ] Add **English mirror** section or `llms-en.txt` for EN-first assistants while keeping DE as primary for DACH privacy queries
+- [ ] **Prerender or static FAQ HTML** in `index.html` (or build step) so full FAQ body exists without JS (compact `<noscript>` what/why/how/limits shipped in Round 2)
+- [ ] **Keep llms*.txt ↔ geoContent.ts ↔ structuredData.json** in sync (lint check or shared codegen) — Round 2 spot-aligned FAQ claims only
+- [x] Add **English mirror** section in `llms-full.txt` for EN-first assistants (DE primary; no fake EN landing page)
 - [ ] Spot-check that production CSP still includes the JSON-LD sha256 after every structured-data edit
 
 ### P2 — entity & trust graph

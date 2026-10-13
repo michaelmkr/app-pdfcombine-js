@@ -34,5 +34,5 @@
 
 ## Optional
 
-- Full description for assistants: /llms-full.txt
+- Full description for assistants: /llms-full.txt (includes a short English summary section)
 - Human README (GitHub): see repository README.md

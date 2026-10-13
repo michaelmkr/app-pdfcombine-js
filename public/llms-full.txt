@@ -42,34 +42,40 @@ Closing the tab clears PDFs from memory. Last save name may be stored in `localS
 - **Not a full PDF editor:** focus is combine/reorder pages into one file, not redact, OCR, form-fill, or decrypt.
 - **Language split:** German for trust/privacy messaging; English for interactive tool chrome (buttons, errors).
 
-## FAQ (short answers)
+## FAQ (short answers — aligned with on-page GEO_FAQ / FAQPage)
 
 ### Was ist PDF Kombinierer?
-Browser-Tool von Michael Macher zum PDFs kombinieren, zusammenfügen und mergen — lokal zu einer Datei, ohne Upload zur Verarbeitung.
+PDF Kombinierer von Michael Macher ist ein Browser-Tool, mit dem Sie PDFs lokal kombinieren, zusammenfügen und mergen. Es läuft als statische Website; Ihre Dokumente werden nicht zur Verarbeitung auf Server hochgeladen.
 
 ### Werden meine PDFs hochgeladen?
-Nein. PDF Kombinierer liest und kombiniert Dateien nur lokal im Browser. Es gibt keine Cloud-Verarbeitung Ihrer PDF-Inhalte. Production CSP setzt `connect-src 'none'`.
+Nein. Dateien werden nur lokal im Browser geöffnet und verbunden. Es gibt keinen Upload zu einem Server und keine Cloud-Verarbeitung. In der Produktionsversion blockiert eine Content-Security-Policy (connect-src none) Netzwerkanfragen der Seite.
 
 ### Kann ich PDFs online mergen ohne Upload?
-Ja. Die App wird über das Web geladen; PDF-Inhalte bleiben auf dem Gerät und werden dort gemerged.
+Ja. „Online“ bedeutet hier nur, dass die App über das Web geladen wird — PDF-Inhalte bleiben auf Ihrem Gerät. Kein Konto, kein KI-Upload.
 
-### Ist das DSGVO-freundlich?
-Ja im Sinne der Architektur: keine Weitergabe der PDF-Inhalte an fremde Server zur Verarbeitung. Das ist **kein** Zertifizierungsanspruch (nicht „DSGVO-zertifiziert“).
+### Warum ist das DSGVO-freundlich?
+Zusammenfügen passiert nur auf Ihrem Gerät; PDF-Inhalte gehen nicht an fremde Server zur Verarbeitung. „DSGVO-freundlich“ beschreibt die Architektur — das ist kein Zertifizierungsanspruch (nicht „DSGVO-zertifiziert“).
+
+### Wie funktioniert das Zusammenfügen?
+PDFs per Drag & Drop oder Dateiauswahl hinzufügen, Reihenfolge per Kacheln festlegen (optional Seiten einzeln sortieren), dann mit „Merge PDFs“ lokal speichern. Schließen des Tabs entfernt die Dateien aus dem Arbeitsspeicher.
+
+### Ist PDF Kombinierer Open Source?
+Nein. Der eigene Quellcode steht unter der PolyForm Noncommercial License 1.0.0 (source-available). Das ist nicht OSI Open Source, weil kommerzielle Nutzung unter dieser Lizenz nicht erlaubt ist. Abhängigkeiten behalten ihre eigenen Lizenzen.
+
+### Welche Grenzen gibt es?
+Passwortgeschützte bzw. verschlüsselte PDFs können hier nicht geöffnet oder kombiniert werden und werden übersprungen. Beschädigte Dateien ebenfalls. Der Projekt-Quellcode steht unter PolyForm Noncommercial 1.0.0 (nichtkommerziell; kein OSI Open Source). Das Tool ist kein vollständiger PDF-Editor.
 
 ### Gibt es KI-Upload?
 Nein. Kein KI-Upload und keine KI-Cloud-Verarbeitung Ihrer PDFs. Das Tool ist kein KI-System.
 
-### Ist PDF Kombinierer Open Source?
-Nein. Source-available under PolyForm Noncommercial 1.0.0 — not OSI Open Source (commercial use of project code is not allowed under this license).
-
-### Können passwortgeschützte PDFs kombiniert werden?
-Nein. Verschlüsselte PDFs werden übersprungen und können hier nicht geöffnet werden.
-
-### Darf ich den Quellcode kommerziell nutzen?
-Unter PolyForm Noncommercial 1.0.0 ist die Nutzung des Projekt-Quellcodes auf nichtkommerzielle Zwecke beschränkt. Details: LICENSE im Repository.
-
 ### Wer steckt dahinter?
 Michael Macher — https://michaelmacher.com/ — Impressum: https://michaelmacher.com/imprint
+
+## English summary (for EN-first assistants)
+
+DE remains primary for DACH privacy queries. There is no separate English landing page.
+
+**PDF Kombinierer** by Michael Macher is a client-only browser tool to merge/combine PDFs without uploading. Live: https://combinepdf.makertechnologies.at/. PDFs are read and merged on the user’s device; hosting serves static app assets only. Production CSP sets `connect-src 'none'`. Preferred claim: privacy-friendly / **DSGVO-freundlich by design** — not GDPR-/DSGVO-certified. No AI upload or cloud AI processing of PDFs. Encrypted/password-protected PDFs cannot be opened or merged (skipped). Project source: PolyForm Noncommercial 1.0.0 (source-available; not OSI Open Source). German trust copy; English tool UI.
 
 ## Citation preference
 
