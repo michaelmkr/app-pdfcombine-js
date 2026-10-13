@@ -1,0 +1,113 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://combinepdf.makertechnologies.at/#app",
+      "name": "PDF Kombinierer",
+      "alternateName": [
+        "PDF Combiner",
+        "PDF mergen online",
+        "PDF zusammenfügen"
+      ],
+      "url": "https://combinepdf.makertechnologies.at/",
+      "description": "PDFs kombinieren, zusammenfügen und mergen — lokal im Browser ohne Upload. DSGVO-freundlich by design (nicht zertifiziert), kein KI-Upload, keine Cloud-Verarbeitung.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript. Runs entirely in the browser.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "inLanguage": ["de", "en"],
+      "isAccessibleForFree": true,
+      "license": "https://polyformproject.org/licenses/noncommercial/1.0.0/",
+      "creator": {
+        "@type": "Person",
+        "name": "Michael Macher",
+        "url": "https://michaelmacher.com/"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Michael Macher",
+        "url": "https://michaelmacher.com/"
+      },
+      "featureList": [
+        "PDF kombinieren und zusammenfügen ohne Upload",
+        "Lokal im Browser mergen",
+        "Seiten neu ordnen und einzeln kombinieren",
+        "Kein Konto, keine Cloud-Verarbeitung, kein KI-Upload",
+        "Passwortgeschützte PDFs werden nicht geöffnet"
+      ],
+      "screenshot": "https://combinepdf.makertechnologies.at/og-image.png"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://combinepdf.makertechnologies.at/#website",
+      "url": "https://combinepdf.makertechnologies.at/",
+      "name": "PDF Kombinierer",
+      "description": "PDF kombinieren, mergen und zusammenfügen — online nutzen, Dateien bleiben lokal.",
+      "inLanguage": "de",
+      "publisher": {
+        "@type": "Person",
+        "name": "Michael Macher",
+        "url": "https://michaelmacher.com/"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://combinepdf.makertechnologies.at/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Werden meine PDFs hochgeladen, wenn ich sie kombiniere?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nein. PDF Kombinierer öffnet und verbindet Ihre Dateien nur lokal in Ihrem Browser. Es gibt keinen Upload zu einem Server und keine Cloud-Verarbeitung. In der Produktionsversion blockiert eine Content-Security-Policy (connect-src none) Netzwerkanfragen der Seite."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Kann ich PDFs online mergen ohne Upload?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ja. Sie öffnen die Web-App im Browser, wählen oder ziehen PDFs hinein und mergen sie auf Ihrem Gerät. „Online“ bedeutet hier nur, dass die App über das Web geladen wird — Ihre PDF-Inhalte bleiben lokal."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ist PDF zusammenfügen mit diesem Tool DSGVO-freundlich?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Das Tool ist so gebaut, dass PDF-Inhalte nicht an fremde Server gehen: Zusammenfügen läuft nur auf Ihrem Gerät, ohne Konto und ohne KI-Upload. Das ist keine Zertifizierung (nicht DSGVO-zertifiziert), sondern die technische Funktionsweise."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wie kann ich mehrere PDFs lokal verbinden und sortieren?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Dateien per Drag-and-Drop oder Dateiauswahl hinzufügen, Kacheln in die gewünschte Reihenfolge ziehen, optional einzelne Seiten einblenden und neu ordnen, dann mit „Merge PDFs“ speichern. Alles bleibt auf Ihrem Computer."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Können passwortgeschützte PDFs kombiniert werden?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nein. Verschlüsselte bzw. passwortgeschützte PDFs können hier nicht geöffnet werden und werden übersprungen."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ist PDF Kombinierer Open Source?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nein. Der eigene Quellcode steht unter der PolyForm Noncommercial License 1.0.0 (source-available). Das ist nicht OSI Open Source, weil kommerzielle Nutzung unter dieser Lizenz nicht erlaubt ist. Abhängigkeiten behalten ihre eigenen Lizenzen."
+          }
+        }
+      ]
+    }
+  ]
+}

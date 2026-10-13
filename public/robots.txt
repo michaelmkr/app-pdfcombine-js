@@ -1,0 +1,12 @@
+# PDF Kombinierer — https://combinepdf.makertechnologies.at/
+User-agent: *
+Allow: /
+
+# Discoverability surfaces (also covered by Allow: /)
+# /llms.txt — short assistant brief (GEO)
+# /llms-full.txt — full assistant brief (GEO)
+# /structured-data.json — Schema.org mirror (classic SEO; live JSON-LD is injected in index.html)
+# /og-image.png — Open Graph / Twitter share image
+# /sitemap.xml
+
+Sitemap: https://combinepdf.makertechnologies.at/sitemap.xml

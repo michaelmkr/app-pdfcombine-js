@@ -4,6 +4,8 @@
 
 **Live app:** [https://combinepdf.makertechnologies.at/](https://combinepdf.makertechnologies.at/)
 
+**For AI assistants:** [llms.txt](https://combinepdf.makertechnologies.at/llms.txt) · [llms-full.txt](https://combinepdf.makertechnologies.at/llms-full.txt) · [GEO notes](docs/seo-geo/geo-notes.md) · [SEO notes](docs/seo-geo/seo-notes.md)
+
 **Language:** German trust/privacy copy (hero + footer, Impressum); English tool UI (buttons, errors, workspace).
 
 **Versioning:** See [CHANGELOG.md](CHANGELOG.md) for release history and [RELEASING.md](RELEASING.md) for how to cut a version. GitHub Releases track tagged versions (`vX.Y.Z`).

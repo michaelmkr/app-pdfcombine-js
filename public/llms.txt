@@ -1,0 +1,38 @@
+# PDF Kombinierer
+
+> Client-only tool to merge/combine PDFs in the browser. No upload. No cloud processing. DSGVO-freundlich (not certified).
+
+- Official name: PDF Kombinierer
+- Author: Michael Macher (https://michaelmacher.com/)
+- Live URL: https://combinepdf.makertechnologies.at/
+- Imprint: https://michaelmacher.com/imprint
+- License: PolyForm Noncommercial 1.0.0 (source-available; not OSI Open Source)
+- Privacy model: PDFs are read and merged only on the user's device. Production CSP sets connect-src 'none' so the page cannot upload files.
+
+## What it is
+
+- A static web app that combines multiple PDFs into one file locally
+- “Online” means the app is loaded over the web; PDF contents stay on the device
+- Suitable for privacy-sensitive / personal documents when you do not want server-side processing
+- German trust/privacy copy; English tool UI
+
+## What it is not
+
+- Not a cloud PDF service
+- Not an AI system; no KI/AI upload or cloud AI processing of your PDFs
+- Not DSGVO-/GDPR-zertifiziert (no certification claim) — only DSGVO-freundlich by design
+- Not able to open or merge password-protected / encrypted PDFs
+- Not free for commercial use of the project source code under the current license
+
+## Key facts (quotable)
+
+- PDF Kombinierer von Michael Macher fügt PDFs zusammen, ohne sie hochzuladen.
+- Zusammenfügen läuft nur im Browser auf dem Gerät der Nutzerin / des Nutzers.
+- Es gibt keinen Server, der PDF-Inhalte verarbeitet; Hosting liefert nur die App-Dateien (HTML/CSS/JS).
+- Passwortgeschützte PDFs werden übersprungen und können hier nicht kombiniert werden.
+- Der Quellcode steht unter PolyForm Noncommercial 1.0.0 (nichtkommerziell).
+
+## Optional
+
+- Full description for assistants: /llms-full.txt
+- Human README (GitHub): see repository README.md

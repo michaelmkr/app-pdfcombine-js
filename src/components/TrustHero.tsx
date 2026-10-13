@@ -38,7 +38,7 @@ export function TrustHero() {
         Zusammenfügen ohne Upload — dsgvo-freundlich. Ihre Dateien gehen nicht
         an fremde Server; nichts wird in der Cloud verarbeitet. Andere
         Online-Tools schicken PDFs oft an Server (manchmal inkl. KI) — hier
-        passiert das Zusammenfügen nur auf Ihrem Gerät, ohne KI-Upload.
+        passiert das Zusammenfügen nur lokal auf Ihrem Gerät, ohne KI-Upload.
       </p>
 
       <div className="trust-hero__strip" role="list">

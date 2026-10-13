@@ -11,6 +11,8 @@ export function TrustFooter() {
         <a href={IMPRINT_URL} target="_blank" rel="noopener noreferrer">
           Impressum
         </a>
+        {' · '}
+        <a href="/llms.txt">llms.txt</a>
       </p>
     </footer>
   )

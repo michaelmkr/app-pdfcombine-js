@@ -7,6 +7,7 @@ import { PdfList } from './components/PdfList'
 import { MergeBar } from './components/MergeBar'
 import { TrustHero } from './components/TrustHero'
 import { TrustFooter } from './components/TrustFooter'
+import { GeoFaq } from './components/GeoFaq'
 import { StatusBanner } from './components/StatusBanner'
 import { WarningList } from './components/WarningList'
 import { AUTHOR_URL } from './lib/imprint'
@@ -396,6 +397,7 @@ export default function App() {
         />
       </main>
 
+      <GeoFaq />
       <TrustFooter />
 
       <MergeBar
