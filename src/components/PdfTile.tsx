@@ -71,7 +71,6 @@ export function PdfTile({
     isDragging ? 'pdf-tile--dragging' : '',
     disabled ? '' : 'pdf-tile--sortable',
     selected ? 'pdf-tile--selected' : '',
-    isPage ? 'pdf-tile--page' : 'pdf-tile--file',
   ]
     .filter(Boolean)
     .join(' ')

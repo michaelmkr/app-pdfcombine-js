@@ -33,7 +33,14 @@ export function countMergePages(
   items: MergeItem[],
   docsById: Record<string, PdfDocument>,
 ): number {
-  return expandMergeItems(items, docsById).length
+  let n = 0
+  for (const item of items) {
+    const doc = docsById[item.docId]
+    if (!doc) continue
+    if (item.kind === 'page') n += 1
+    else n += doc.pageCount
+  }
+  return n
 }
 
 /**

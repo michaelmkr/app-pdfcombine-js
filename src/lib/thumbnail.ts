@@ -59,13 +59,6 @@ export async function renderPageThumbnail(
   }
 }
 
-/** Convenience: first-page thumbnail. */
-export async function renderFirstPageThumbnail(
-  bytes: ArrayBuffer,
-): Promise<string | null> {
-  return renderPageThumbnail(bytes, 0)
-}
-
 export function revokeThumbnail(url: string | null | undefined): void {
   if (url) URL.revokeObjectURL(url)
 }

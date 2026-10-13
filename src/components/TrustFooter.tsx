@@ -1,4 +1,4 @@
-const IMPRINT_URL = 'https://michaelmacher.com/imprint'
+import { IMPRINT_URL } from '../lib/imprint'
 
 export function TrustFooter() {
   return (

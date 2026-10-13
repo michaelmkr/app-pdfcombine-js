@@ -1,10 +1,20 @@
-import type { SkippedFile } from '../types'
-import { skipReasonMessage } from '../lib/loadPdf'
+import type { SkipReason, SkippedFile } from '../types'
 
 type WarningListProps = {
   skipped: SkippedFile[]
   addedCount: number
   onDismiss: () => void
+}
+
+function skipReasonMessage(reason: SkipReason): string {
+  switch (reason) {
+    case 'encrypted':
+      return 'password-protected. This tool cannot open encrypted PDFs.'
+    case 'corrupt':
+      return 'could not be read (corrupt or unsupported).'
+    case 'not-pdf':
+      return 'is not a PDF file.'
+  }
 }
 
 export function WarningList({ skipped, addedCount, onDismiss }: WarningListProps) {

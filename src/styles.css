@@ -295,19 +295,12 @@ input {
   color: var(--text-muted);
 }
 
-.trust-hero__imprint {
-  margin: 0.85rem 0 0;
-  font-size: 0.85rem;
-}
-
-.trust-hero__imprint a,
 .trust-footer a {
   color: var(--primary);
   font-weight: 600;
   text-underline-offset: 0.18em;
 }
 
-.trust-hero__imprint a:hover,
 .trust-footer a:hover {
   color: var(--primary-hover);
 }
@@ -1110,13 +1103,6 @@ input {
   color: var(--danger);
   font-size: 0.92rem;
   font-weight: 550;
-}
-
-.merge-bar__status {
-  margin: 0;
-  color: var(--text-muted);
-  font-size: 0.92rem;
-  font-weight: 500;
 }
 
 /* —— Responsive —— */

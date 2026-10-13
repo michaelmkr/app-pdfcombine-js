@@ -19,12 +19,6 @@ import { getLastFilename, setLastFilename } from './lib/prefs'
 import { renderPageThumbnail } from './lib/thumbnail'
 import type { AppStatus, MergeItem, PdfDocument, SkippedFile } from './types'
 
-function docsToRecord(docs: PdfDocument[]): Record<string, PdfDocument> {
-  const out: Record<string, PdfDocument> = {}
-  for (const d of docs) out[d.id] = d
-  return out
-}
-
 function fileItemFromDoc(doc: PdfDocument): MergeItem {
   return {
     id: crypto.randomUUID(),
@@ -106,7 +100,11 @@ export default function App() {
         )
         return
       }
-      setDocsById((prev) => ({ ...prev, ...docsToRecord(loaded) }))
+      setDocsById((prev) => {
+        const next = { ...prev }
+        for (const doc of loaded) next[doc.id] = doc
+        return next
+      })
       setItems((prev) => [...prev, ...loaded.map(fileItemFromDoc)])
       setSkipped(skippedFiles)
       setLastAddedCount(loaded.length)

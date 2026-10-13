@@ -1,14 +1,10 @@
 import { PDFDocument } from 'pdf-lib'
 import type { PdfDocument, SkipReason, SkippedFile } from '../types'
-import { renderFirstPageThumbnail, revokeThumbnail } from './thumbnail'
+import { renderPageThumbnail, revokeThumbnail } from './thumbnail'
 
 function isPdfFile(file: File): boolean {
   if (file.type === 'application/pdf') return true
   return file.name.toLowerCase().endsWith('.pdf')
-}
-
-function newId(): string {
-  return crypto.randomUUID()
 }
 
 function classifyError(err: unknown): Exclude<SkipReason, 'not-pdf'> {
@@ -30,12 +26,12 @@ export async function loadPdfFile(
     const pdf = await PDFDocument.load(bytes.slice(0), {
       ignoreEncryption: false,
     })
-    const thumbnailUrl = await renderFirstPageThumbnail(bytes)
+    const thumbnailUrl = await renderPageThumbnail(bytes, 0)
     const pageThumbs = new Map<number, string | null>()
     pageThumbs.set(0, thumbnailUrl)
     return {
       doc: {
-        id: newId(),
+        id: crypto.randomUUID(),
         name: file.name,
         bytes,
         pageCount: pdf.getPageCount(),
@@ -97,19 +93,3 @@ export function revokeDocThumbnails(docs: PdfDocument[]): void {
   }
 }
 
-export function formatBytes(n: number): string {
-  if (n < 1024) return `${n} B`
-  if (n < 1024 * 1024) return `${(n / 1024).toFixed(1)} KB`
-  return `${(n / (1024 * 1024)).toFixed(1)} MB`
-}
-
-export function skipReasonMessage(reason: SkipReason): string {
-  switch (reason) {
-    case 'encrypted':
-      return 'password-protected. This tool cannot open encrypted PDFs.'
-    case 'corrupt':
-      return 'could not be read (corrupt or unsupported).'
-    case 'not-pdf':
-      return 'is not a PDF file.'
-  }
-}

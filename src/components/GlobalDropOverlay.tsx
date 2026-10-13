@@ -19,6 +19,7 @@ export function GlobalDropOverlay({ onFiles, disabled }: GlobalDropOverlayProps)
   const onFilesRef = useRef(onFiles)
   const disabledRef = useRef(disabled)
 
+  // Clear overlay when the app becomes busy (prop-driven state adjust).
   if (disabled && active) {
     setActive(false)
   }

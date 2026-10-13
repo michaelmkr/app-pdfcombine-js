@@ -1,5 +1,5 @@
 import type { AppStatus } from '../types'
-import { formatBytes } from '../lib/loadPdf'
+import { busyButtonLabel, progressRatio } from '../lib/status'
 
 type MergeBarProps = {
   filename: string
@@ -13,51 +13,10 @@ type MergeBarProps = {
   totalSizeBytes: number
 }
 
-function busyLabel(status: AppStatus): string {
-  switch (status.phase) {
-    case 'loading':
-      return 'Reading…'
-    case 'thumbs':
-      return 'Thumbnails…'
-    case 'merging':
-      return 'Merging…'
-    case 'saving':
-      return 'Saving…'
-    default:
-      return 'Merge & download'
-  }
-}
-
-function statusLine(status: AppStatus): string | null {
-  switch (status.phase) {
-    case 'loading':
-      return `Reading PDF ${status.current}/${status.total}…`
-    case 'thumbs':
-      return 'Rendering page thumbnails…'
-    case 'merging': {
-      const pct =
-        status.total > 0
-          ? Math.round((status.current / status.total) * 100)
-          : 0
-      return `Merging page ${status.current}/${status.total}… (${pct}%)`
-    }
-    case 'saving':
-      return 'Saving…'
-    default:
-      return null
-  }
-}
-
-function progressRatio(status: AppStatus): number | null {
-  if (status.phase === 'merging' && status.total > 0) {
-    return Math.min(1, status.current / status.total)
-  }
-  if (status.phase === 'loading' && status.total > 0) {
-    return Math.min(1, status.current / status.total)
-  }
-  if (status.phase === 'saving') return 0.95
-  if (status.phase === 'thumbs') return null
-  return null
+function formatBytes(n: number): string {
+  if (n < 1024) return `${n} B`
+  if (n < 1024 * 1024) return `${(n / 1024).toFixed(1)} KB`
+  return `${(n / (1024 * 1024)).toFixed(1)} MB`
 }
 
 export function MergeBar({
@@ -72,7 +31,6 @@ export function MergeBar({
   totalSizeBytes,
 }: MergeBarProps) {
   const busy = status.phase !== 'idle'
-  const line = statusLine(status)
   const ratio = progressRatio(status)
 
   return (
@@ -136,7 +94,7 @@ export function MergeBar({
               disabled={!canMerge || busy}
               onClick={onMerge}
             >
-              {busy ? busyLabel(status) : 'Merge & download'}
+              {busy ? busyButtonLabel(status) : 'Merge & download'}
             </button>
           </div>
         </div>
@@ -144,11 +102,6 @@ export function MergeBar({
         {error ? (
           <p className="merge-bar__error" role="alert">
             {error}
-          </p>
-        ) : null}
-        {line ? (
-          <p className="merge-bar__status" aria-live="polite">
-            {line}
           </p>
         ) : null}
       </div>

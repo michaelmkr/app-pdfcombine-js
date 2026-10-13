@@ -62,8 +62,8 @@ export function DropZone({ onFiles, disabled, compact }: DropZoneProps) {
         </p>
         <p className="dropzone__hint">
           {compact
-            ? 'or choose files / a folder — nothing is uploaded'
-            : 'Your merge queue is empty. Choose files or a folder — nothing leaves this device.'}
+            ? 'or choose files / a folder'
+            : 'Your merge queue is empty. Choose files or a folder to get started.'}
         </p>
       </div>
       <div className="dropzone__actions">
