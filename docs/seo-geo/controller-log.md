@@ -69,6 +69,23 @@
 
 ---
 
-## Round 2 — (filled after follow-ups)
+## Round 2 — Task-spawn refinement (integrated)
 
-_Pending Task-spawn SEO + GEO refinement._
+| Agent | Commit | Outcome |
+|-------|--------|---------|
+| SEO follow-up | `5736267` (+ notes `c710459`) | Verified prod JSON-LD + matching CSP sha256; README discoverability OK; `sameAs` deferred (no GitHub URL in README) |
+| GEO follow-up | `f879e7e` | Spot-aligned llms FAQ ↔ GEO_FAQ/FAQPage; EN summary in `llms-full.txt`; expanded `<noscript>` what/why/how/limits |
+
+### Final consistency pass (controller)
+
+- Rebuilt: `dist/index.html` JSON-LD hash still matches CSP; `connect-src 'none'` intact; noscript has Was/Warum/Wie/Grenzen
+- Claim guardrails: “DSGVO-zertifiziert” only appears negated; no AggregateRating; no keywords meta; PolyForm NC not labeled OSI Open Source
+- CHANGELOG `[Unreleased]` has SEO + GEO bullets; README points at live URL + llms + seo-geo notes
+- Brand UI untouched (TrustHero stays trust-first)
+
+### Still backlog (honest)
+
+- Full static FAQ prerender beyond noscript
+- Automated sync lint for geoContent ↔ llms ↔ structuredData
+- Author `sameAs` / Search Console (non-tracking)
+- External links/authority for competitive “merge PDF” rankings (see Reality check)
