@@ -5,6 +5,7 @@ export const de: Messages = {
     title: 'PDF kombinieren & mergen — online ohne Upload | PDF Kombinierer',
     description:
       'PDFs kombinieren, zusammenfügen und mergen — lokal im Browser, ohne Upload. DSGVO-freundlich by design (nicht zertifiziert), kein KI-Upload, keine Cloud. PDF Kombinierer von Michael Macher.',
+    ogImageAlt: 'PDF Kombinierer — PDFs zusammenfügen ohne Upload',
   },
   brand: {
     by: 'von',
@@ -127,6 +128,8 @@ export const de: Messages = {
     faqHeading: 'Häufige Fragen',
     machineReadable: 'Maschinelesbar:',
     imprint: 'Impressum',
+    authorName: 'Michael Macher',
+    authorSiteLabel: 'michaelmacher.com',
     steps: [
       'PDFs ablegen oder Dateien / Ordner wählen — nichts wird hochgeladen.',
       'Reihenfolge per Drag-and-Drop setzen; optional Seiten einzeln ordnen.',
@@ -158,7 +161,13 @@ export const de: Messages = {
         id: 'privacy',
         term: 'Datenschutzmodell',
         definition:
-          'PDFs werden nur auf dem Gerät gelesen und zusammengefügt; kein Upload zur Verarbeitung, kein Netzwerk-Telemetriekanal für PDF-Inhalte. DSGVO-freundlich by design — nicht zertifiziert.',
+          'PDFs werden nur auf dem Gerät gelesen und zusammengefügt; kein Upload zur Verarbeitung, kein Netzwerk-Telemetriekanal für PDF-Inhalte. DSGVO-freundlich durch Architektur — nicht zertifiziert.',
+      },
+      {
+        id: 'languages',
+        term: 'Sprachen',
+        definition:
+          'Deutsch und Englisch — vollständige Oberfläche mit Umschalter in der Kopfzeile; Präferenz lokal im Browser (eine Sprache zur Zeit, keine gemischte DE/EN-Oberfläche).',
       },
     ],
     faq: [
@@ -196,6 +205,16 @@ export const de: Messages = {
         question: 'Welche Grenzen gibt es?',
         answer:
           'Passwortgeschützte bzw. verschlüsselte PDFs können hier nicht geöffnet oder kombiniert werden und werden übersprungen. Beschädigte Dateien ebenfalls. Der Projekt-Quellcode steht unter PolyForm Noncommercial 1.0.0 (nichtkommerziell; kein OSI Open Source). Das Tool ist kein vollständiger PDF-Editor.',
+      },
+      {
+        question: 'Gibt es KI-Upload?',
+        answer:
+          'Nein. Kein KI-Upload und keine KI-Cloud-Verarbeitung Ihrer PDFs. Das Tool ist kein KI-System.',
+      },
+      {
+        question: 'Welche Sprachen gibt es?',
+        answer:
+          'Deutsch und Englisch — vollständige Oberfläche inkl. Datenschutztexte, Werkzeug-UI, Fehler und FAQ. Umschalter in der Kopfzeile; Präferenz lokal im Browser. Eine URL, keine separate EN-Landingpage.',
       },
     ],
   },

@@ -2,7 +2,7 @@
 
 Classic search / SERP / crawler notes (Google, Bing, social previews). For assistant citeability see [`geo-notes.md`](./geo-notes.md).
 
-**Last updated:** 2026-10-13 (Round 2 follow-up)  
+**Last updated:** 2026-10-13 (i18n catch-up)  
 **Live URL:** https://combinepdf.makertechnologies.at/  
 **Official name:** PDF Kombinierer  
 **Author:** Michael Macher — https://michaelmacher.com/  
@@ -10,18 +10,21 @@ Classic search / SERP / crawler notes (Google, Bing, social previews). For assis
 
 ---
 
-## Round 2 follow-up (2026-10-13)
+## i18n model (post-2c7715e)
 
-Short controller-assigned pass — no ranking claims.
+**One canonical URL, client-side language switch.** There is no separate English landing path. Inventing `/en` (or any second crawlable URL) is a non-goal until a real static EN document ships.
 
-| Item | Result |
-|------|--------|
-| Production `npm run build` → `dist/index.html` | **OK:** `application/ld+json` injected from `src/seo/structuredData.json`; CSP `script-src` includes matching `sha256-…`; `connect-src 'none'` intact; no `unsafe-inline` on scripts |
-| README discoverability | **OK as-is:** live URL + `llms.txt` / `llms-full.txt` + `docs/seo-geo` SEO/GEO notes (no bloat added) |
-| CHANGELOG `[Unreleased]` SEO bullets | Reviewed; kept claim-safe; noted this verify-only follow-up |
-| Author `sameAs` | **Skipped** — michaelmacher.com is in README, but no GitHub repo URL appears in README |
+| Layer | Language behavior |
+|-------|-------------------|
+| Canonical / sitemap / robots | Single URL: `https://combinepdf.makertechnologies.at/` |
+| Static HTML shell (`index.html`) | **DE primary** for SERP: `lang="de"`, DE title/description, DE OG/Twitter, DE `<noscript>`, DE FAQPage JSON-LD |
+| `hreflang` | `de` + `x-default` → same URL only. **No** `hreflang="en"` on the same URL (would imply a distinct EN document that does not exist) |
+| `og:locale` | Primary `de_AT`; alternates `de_DE`, `en_US` as **locale hints**, not alternate page URLs |
+| Client after hydrate | Full UI DE/EN via `src/i18n` + header switcher; preference in `localStorage` (`pdf-kombinierer-locale`); browser `de*` → DE else EN (fallback DE) |
+| Runtime DOM | `document.documentElement.lang` + title / meta description / OG+Twitter title+description + `og:locale` (`de_AT` / `en_US`) + image alts update with locale (helps a11y + human share after switch; **crawlers still see the DE shell**) |
+| JSON-LD (build-injected) | `WebApplication` / `WebSite` / `FAQPage` `inLanguage` include `de`+`en`; FAQ `mainEntity` has DE + EN Q&As each tagged `inLanguage` (DE answers remain primary for DACH SERP intent) |
 
-No keywords meta, analytics, Remotion, or CSP weakening.
+**Obsolete framing (do not revive):** “German trust + English tool chrome” / mixed-language UI. As of commit `2c7715e`, locale applies to the full UI (trust, gallery, merge bar, errors, FAQ/GEO, empty states).
 
 ---
 
@@ -54,6 +57,8 @@ No keywords meta, analytics, Remotion, or CSP weakening.
 | No-upload | merge PDFs without uploading, local PDF merger | Aligns with product truth |
 | Privacy | privacy-friendly PDF merge, client-side PDF combiner | Prefer over “GDPR certified” |
 
+EN discovery today: client UI + bilingual FAQPage / `<noscript>` / `llms-full.txt` EN FAQ + OG `en_US` locale alternate — **not** a second indexed URL.
+
 **Do not chase:** full PDF editor, OCR, e-sign, password unlock, “best free PDF tool 2026” listicle spam, fake review SERPs.
 
 ---
@@ -64,27 +69,29 @@ No keywords meta, analytics, Remotion, or CSP weakening.
 
 | Surface | Status |
 |---------|--------|
-| `index.html` `<title>` + meta description | Keyword-aware DE; includes ohne Upload + DSGVO-freundlich (nicht zertifiziert) + brand/author |
-| `html lang="de"` | Matches primary trust language |
+| `index.html` `<title>` + meta description | Keyword-aware **DE** shell; includes ohne Upload + DSGVO-freundlich (nicht zertifiziert) + brand/author |
+| Client meta (`src/i18n` de/en `meta.*`) | Matches shell for DE; EN strings after locale switch |
+| `html lang="de"` (shell) | DE primary for crawlers; runtime may become `en` after client switch |
 | Canonical | `https://combinepdf.makertechnologies.at/` |
-| `hreflang` de + x-default | Same URL (single-locale SPA); no fake EN URL |
+| `hreflang` de + x-default | Same URL; no fake EN URL |
 | `meta robots` | `index, follow, max-image-preview:large` |
 | Author / application-name | Michael Macher / PDF Kombinierer |
 | Keywords meta | Omitted (low modern SEO weight; avoid stuffing) |
-| TrustHero | Privacy-first lead with natural kombinieren/mergen phrasing |
-| GeoFaq (visible DE FAQ + facts) | Below tool; citeable what/why/how/limits; complements classic on-page text |
-| Footer | Impressum + `/llms.txt` |
-| OG / Twitter | Title, description, 1200×630 `og-image.png`, alts |
+| TrustHero | Privacy-first lead; full UI localized (no mixed DE/EN chrome) |
+| GeoFaq | Localized via i18n; JSON-LD FAQ mirrors DE + EN on-page answers (with `inLanguage`) |
+| Footer | Impressum + `/llms.txt` (localized chrome) |
+| OG / Twitter | DE shell title/description/`og:locale=de_AT`; 1200×630 `og-image.png`; client refreshes title/description/`og:locale`/alts on locale change |
 | Theme color | Brand `#6e1622` |
-| `<noscript>` facts block | Short DE privacy/license summary in HTML shell for non-JS clients |
+| `<noscript>` facts block | Short **DE** privacy/license summary in HTML shell for non-JS clients |
 
 ### Gaps / tensions
 
 1. **SPA crawlability:** Main FAQ/facts still render via React. Non-JS crawlers get meta + JSON-LD (build-injected) + `<noscript>` + static `/llms*.txt`. Richer static FAQ HTML in the initial document remains backlog (shared with GEO P1).
 2. **Keyword vs trust-copy tension:** Title/meta may use “kombinieren / zusammenfügen / mergen”; **visible hero must stay trust-first**. GeoFaq heading uses natural “PDFs lokal zusammenfügen” — avoid repeating the full verb triad in UI.
-3. **Bilingual UI:** German trust + English chrome can look mixed to crawlers; document in meta/GEO rather than forcing EN hero.
-4. **Keywords meta** omitted on purpose; do not reintroduce stuffing lists.
-5. **No separate EN landing URL** — English is secondary discovery only (meta/OG alternate locale hints, not a second page).
+3. **i18n vs crawlers:** EN UI/meta after hydrate is largely invisible to classic bots; SERP snippets stay DE-primary by design. Do not fake an EN URL to “fix” that.
+4. **Bilingual FAQPage on one URL:** Schema ships DE+EN Q&As (GEO i18n catch-up). Claim-accurate and `inLanguage`-tagged, but may look “mixed” to snippet systems vs DE-only shell — watch Rich Results; do not add a second URL to “solve” it.
+5. **Keywords meta** omitted on purpose; do not reintroduce stuffing lists.
+6. **No separate EN landing URL** — English is secondary discovery only (client switch + GEO EN FAQ/summary + OG locale alternate).
 
 ---
 
@@ -111,6 +118,7 @@ No keywords meta, analytics, Remotion, or CSP weakening.
 - Absolute `og:image` / `twitter:image` → `/og-image.png` (1200×630)
 - Descriptions restate no-upload + not-zertifiziert where privacy is claimed
 - No `twitter:site` until an official handle exists
+- Client locale switch updates OG/Twitter **title/description**, **`og:locale`**, and image alts for humans; it does **not** invent a second `og:url` (correct for single-URL SPA). Crawlers/share scrapers that never execute JS still see the DE shell.
 
 ### Schema.org (JSON-LD)
 
@@ -126,6 +134,8 @@ Do not add a parallel `public/structured-data.json` unless it is generated from 
 - Creator/publisher: Michael Macher + michaelmacher.com
 - License URL: PolyForm NC 1.0.0
 - FAQ answers: no upload, “online ≠ upload”, DSGVO-freundlich **not** zertifiziert, encrypted PDFs skipped, **not** OSI Open Source
+- UI control names in DE FAQ text match DE i18n (e.g. „PDFs zusammenfügen“); EN FAQ uses “Merge PDFs”
+- `inLanguage`: app/site/FAQ graph advertise DE+EN; static HTML meta/hreflang stay DE-primary (no EN URL)
 
 **Never add:** `AggregateRating` / fake reviews, `Certification` / DSGVO badges, `applicationCategory` spam, competitor `sameAs` smears.
 
@@ -151,7 +161,7 @@ Naive `<script type="application/ld+json">…</script>` in source HTML would con
 
 **Ops rules**
 
-- Edit schema only in `src/seo/structuredData.json` (keep FAQ answers aligned with `geoContent.ts`).
+- Edit schema only in `src/seo/structuredData.json` (keep FAQ answers aligned with `src/i18n` DE **and** EN FAQ).
 - Recompute happens automatically on next build; changing JSON without rebuild leaves prod hash/body mismatched until rebuild.
 - **Do not** add `unsafe-inline` or loosen `connect-src` to “make SEO easier”.
 - Prefer this hash approach over Remotion or any client-side schema injector that fetches remote JSON (`connect-src 'none'` would block that anyway).
@@ -171,10 +181,11 @@ Naive `<script type="application/ld+json">…</script>` in source HTML would con
 
 | Layer | Role |
 |-------|------|
-| `<title>` / meta / OG | Keyword discovery + honest differentiator |
-| TrustHero | **Trust conversion** — no verb-triad stuffing |
-| GeoFaq | Citeable facts for humans + assistants; natural DE |
-| Tool chrome | English UX; do not DE-keyword-stuff buttons |
+| `<title>` / meta / OG (shell) | Keyword discovery + honest differentiator (DE) |
+| Client `meta.*` i18n | Same role after locale switch; not a second URL |
+| TrustHero | **Trust conversion** — no verb-triad stuffing; localized with rest of UI |
+| GeoFaq | Citeable facts for humans + assistants; natural wording per locale |
+| Tool chrome | Localized with locale; do not keyword-stuff buttons |
 
 If SERP CTR and on-site trust diverge, **prefer trust**. Privacy is the product moat.
 
@@ -190,6 +201,7 @@ If SERP CTR and on-site trust diverge, **prefer trust**. Privacy is the product 
 | Source-available, PolyForm Noncommercial | “Open Source” (OSI) without qualification |
 | Encrypted PDFs cannot be opened here | Supports password-protected PDFs |
 | Free to use in the browser | Fake star ratings / review schema |
+| Full UI DE/EN via client switch (one URL) | Mixed DE trust / EN chrome; fake EN landing |
 
 Align meta, OG, JSON-LD, README, llms*.txt, and GeoFaq whenever claims change.
 
@@ -202,8 +214,9 @@ Align meta, OG, JSON-LD, README, llms*.txt, and GeoFaq whenever claims change.
 | Title, description, canonical, robots, sitemap, OG, JSON-LD | `llms.txt`, `llms-full.txt`, GeoFaq, entity packaging |
 | Ranking + snippet control | Answer engine citeability |
 | CSP-safe schema injection | Same CSP constraints; prefer static briefs if JS-off |
+| DE shell + optional client EN | DE briefs primary; `llms*.txt` + FAQPage also carry EN FAQ (still one URL) |
 
-Keep [`geo-notes.md`](./geo-notes.md) claim table and this file’s guardrails identical in spirit. Copy drift between `geoContent.ts`, `llms*.txt`, and `structuredData.json` is a joint P1 risk.
+Keep [`geo-notes.md`](./geo-notes.md) claim table and this file’s guardrails identical in spirit. Copy drift between DE i18n FAQ, `llms*.txt`, and `structuredData.json` is a joint P1 risk. Assistants that cite “mixed-language UI” are outdated after `2c7715e`.
 
 ---
 
@@ -212,7 +225,7 @@ Keep [`geo-notes.md`](./geo-notes.md) claim table and this file’s guardrails i
 ### P1 — crawl & consistency
 
 - [ ] Prerender or static FAQ HTML in initial document (JS-off parity)
-- [ ] Single source / check that `structuredData.json` ↔ `geoContent.ts` FAQ claims stay aligned
+- [ ] Single source / check that `structuredData.json` ↔ i18n FAQ (DE **and** EN) stay aligned
 - [ ] After claim edits: rebuild and spot-check dist CSP hash still matches JSON-LD body
 - [ ] Search Console (or Bing) property via non-tracking verification; submit sitemap
 
@@ -220,7 +233,8 @@ Keep [`geo-notes.md`](./geo-notes.md) claim table and this file’s guardrails i
 
 - [ ] Optional `sameAs` for author (michaelmacher.com, GitHub) once URLs are stable and wanted
 - [ ] Refine OG image if brand system updates (keep 1200×630)
-- [ ] If a real EN FAQ page appears, add proper `hreflang` pair — never invent a second URL
+- [ ] If a real EN FAQ / landing URL appears, add proper `hreflang` pair — never invent a second URL
+- [ ] Optional: keep shell meta and `src/i18n/de.ts` `meta.*` in sync via shared constant or lint
 
 ### P3 — measurement & content ops
 
@@ -236,6 +250,7 @@ Keep [`geo-notes.md`](./geo-notes.md) claim table and this file’s guardrails i
 - Weakening production CSP
 - Remotion or heavy media pipelines for SEO assets
 - Keyword-stuffed TrustHero / brand layout changes for ranking
+- Fake EN pages or `hreflang="en"` pointing at the DE-only shell URL
 
 ---
 
@@ -246,13 +261,26 @@ Keep [`geo-notes.md`](./geo-notes.md) claim table and this file’s guardrails i
 3. `/og-image.png` 200; ~1200×630; referenced absolutely in meta
 4. View production HTML source: JSON-LD present; CSP includes matching `sha256` for that body; `connect-src 'none'` intact
 5. Title/description: no “zertifiziert”; PolyForm/Open Source claims accurate if present
-6. TrustHero still trust-first (not a keyword list)
+6. TrustHero still trust-first (not a keyword list); UI language is consistent per locale
 7. No analytics scripts introduced
+8. No docs/llms claims of mixed DE trust / EN chrome
 
 ---
 
-## Catch-up verification (2026-10-13)
+## i18n catch-up (2026-10-13)
 
-- Production build injects JSON-LD; CSP `script-src` sha256 matched the injected body in a local `npm run build` check.
-- No `public/structured-data.json` mirror (single source: `src/seo/structuredData.json`).
-- Keywords meta remains omitted; TrustHero stays trust-first; `<noscript>` covers minimal JS-off facts.
+Short SEO pass after full DE/EN UI i18n (`2c7715e`). No ranking claims. Claim-surface fixes in `llms*` / FAQPage / `<noscript>` were coordinated with the GEO i18n catch-up.
+
+| Item | Result |
+|------|--------|
+| Mixed-language UI framing in `seo-notes` | **Rewritten** — single-URL SPA + client switch; DE shell primary for SERP/hreflang |
+| `hreflang` / canonical | **Kept `de` + `x-default` only;** removed mistaken same-URL `hreflang="en"` (no distinct EN document) |
+| `og:locale` + `en_US` alternate | **OK:** shell `de_AT` + alternates as locale hints; client may flip `og:locale` after hydrate |
+| `html lang` / client meta | **Documented:** shell `de`; runtime lang + title/description/`og:locale`/alts follow locale |
+| JSON-LD FAQ control label + EN Q&As | **Aligned** (with GEO): DE „PDFs zusammenfügen“; EN FAQ block + `inLanguage` tags present |
+| `<noscript>` / `llms*.txt` | **Aligned** (with GEO): no mixed DE trust / EN chrome claims; DE how-step uses DE button label |
+| TrustHero redesign | **Skipped** (out of scope) |
+| CSP / analytics / keywords meta / fake EN page | **Not weakened** / not added |
+| Production `npm run build` after schema | Verified in this pass — JSON-LD inject + matching `sha256`; `connect-src 'none'` intact |
+
+No keywords meta, analytics, Remotion, or CSP weakening.

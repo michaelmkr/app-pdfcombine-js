@@ -22,6 +22,7 @@
       hreflang="de"
       href="https://combinepdf.makertechnologies.at/"
     />
+    <!-- No English hreflang alternate: EN is client-side only (no distinct EN document). -->
     <link
       rel="alternate"
       hreflang="x-default"
@@ -82,41 +83,81 @@
   <body>
     <div id="root"></div>
     <noscript>
-      <main lang="de" style="max-width: 40rem; margin: 2rem auto; padding: 0 1rem; font-family: system-ui, sans-serif">
-        <h1>PDF Kombinierer</h1>
-        <p>
-          Von Michael Macher — PDFs lokal im Browser zusammenfügen, ohne Upload.
-          Live:
-          <a href="https://combinepdf.makertechnologies.at/">combinepdf.makertechnologies.at</a>.
-        </p>
-        <h2>Was</h2>
-        <p>
-          Browser-Tool zum PDFs kombinieren, zusammenfügen und mergen als
-          statische Website — Dokumente werden nicht zur Verarbeitung hochgeladen.
-        </p>
-        <h2>Warum</h2>
-        <p>
-          DSGVO-freundlich by design (nicht zertifiziert): kein Upload, kein
-          KI-Upload, keine Cloud-Verarbeitung. „Online“ = App geladen; PDFs bleiben lokal.
-        </p>
-        <h2>Wie</h2>
-        <ol>
-          <li>PDFs ablegen oder Dateien wählen — nichts wird hochgeladen.</li>
-          <li>Reihenfolge setzen; optional Seiten einzeln ordnen.</li>
-          <li>Mit „Merge PDFs“ die kombinierte Datei lokal speichern.</li>
-        </ol>
-        <h2>Grenzen</h2>
-        <ul>
-          <li>Passwortgeschützte / verschlüsselte PDFs werden übersprungen.</li>
-          <li>Quellcode: PolyForm Noncommercial 1.0.0 (nicht OSI Open Source).</li>
-          <li>Kein vollständiger PDF-Editor (Fokus: kombinieren / neu ordnen).</li>
-        </ul>
-        <p>
-          Maschinelesbar:
-          <a href="/llms.txt">llms.txt</a>,
-          <a href="/llms-full.txt">llms-full.txt</a>.
-          JavaScript aktivieren, um die App zu nutzen.
-        </p>
+      <main style="max-width: 40rem; margin: 2rem auto; padding: 0 1rem; font-family: system-ui, sans-serif">
+        <article lang="de">
+          <h1>PDF Kombinierer</h1>
+          <p>
+            Von Michael Macher — PDFs lokal im Browser zusammenfügen, ohne Upload.
+            Live:
+            <a href="https://combinepdf.makertechnologies.at/">combinepdf.makertechnologies.at</a>.
+          </p>
+          <h2>Was</h2>
+          <p>
+            Browser-Tool zum PDFs kombinieren, zusammenfügen und mergen als
+            statische Website — Dokumente werden nicht zur Verarbeitung hochgeladen.
+            Die App-Oberfläche ist auf Deutsch und Englisch verfügbar (nach Aktivierung von JavaScript).
+          </p>
+          <h2>Warum</h2>
+          <p>
+            DSGVO-freundlich by design (nicht zertifiziert): kein Upload, kein
+            KI-Upload, keine Cloud-Verarbeitung. „Online“ = App geladen; PDFs bleiben lokal.
+          </p>
+          <h2>Wie</h2>
+          <ol>
+            <li>PDFs ablegen oder Dateien wählen — nichts wird hochgeladen.</li>
+            <li>Reihenfolge setzen; optional Seiten einzeln ordnen.</li>
+            <li>Mit „PDFs zusammenfügen“ die kombinierte Datei lokal speichern.</li>
+          </ol>
+          <h2>Grenzen</h2>
+          <ul>
+            <li>Passwortgeschützte / verschlüsselte PDFs werden übersprungen.</li>
+            <li>Quellcode: PolyForm Noncommercial 1.0.0 (nicht OSI Open Source).</li>
+            <li>Kein vollständiger PDF-Editor (Fokus: kombinieren / neu ordnen).</li>
+          </ul>
+          <p>
+            Maschinelesbar:
+            <a href="/llms.txt">llms.txt</a>,
+            <a href="/llms-full.txt">llms-full.txt</a>.
+            JavaScript aktivieren, um die App zu nutzen.
+          </p>
+        </article>
+        <article lang="en" style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid #ccc">
+          <h1>PDF Kombinierer</h1>
+          <p>
+            By Michael Macher — merge PDFs locally in the browser, without upload.
+            Live:
+            <a href="https://combinepdf.makertechnologies.at/">combinepdf.makertechnologies.at</a>.
+          </p>
+          <h2>What</h2>
+          <p>
+            Browser tool to combine, join and merge PDFs as a static website —
+            documents are not uploaded for processing. Full UI in German and English
+            (after enabling JavaScript).
+          </p>
+          <h2>Why</h2>
+          <p>
+            GDPR-friendly by design (not certified): no upload, no AI upload, no cloud
+            processing. “Online” = app loaded; PDFs stay on-device.
+          </p>
+          <h2>How</h2>
+          <ol>
+            <li>Drop PDFs or choose files — nothing is uploaded.</li>
+            <li>Set the order; optionally arrange individual pages.</li>
+            <li>Save the combined file locally with “Merge PDFs”.</li>
+          </ol>
+          <h2>Limits</h2>
+          <ul>
+            <li>Password-protected / encrypted PDFs are skipped.</li>
+            <li>Source: PolyForm Noncommercial 1.0.0 (not OSI Open Source).</li>
+            <li>Not a full PDF editor (focus: combine / reorder).</li>
+          </ul>
+          <p>
+            Machine-readable:
+            <a href="/llms.txt">llms.txt</a>,
+            <a href="/llms-full.txt">llms-full.txt</a>.
+            Enable JavaScript to use the app.
+          </p>
+        </article>
       </main>
     </noscript>
     <script type="module" src="/src/main.tsx"></script>

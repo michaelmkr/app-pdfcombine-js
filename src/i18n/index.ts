@@ -58,18 +58,34 @@ function applyDocumentLang(locale: Locale): void {
   document.documentElement.lang = locale
 }
 
-function applyDocumentMeta(messages: Messages): void {
+const OG_LOCALE: Record<Locale, string> = {
+  de: 'de_AT',
+  en: 'en_US',
+}
+
+function applyDocumentMeta(locale: Locale, messages: Messages): void {
   document.title = messages.meta.title
   const desc = document.querySelector('meta[name="description"]')
   if (desc) desc.setAttribute('content', messages.meta.description)
+
   const ogTitle = document.querySelector('meta[property="og:title"]')
   if (ogTitle) ogTitle.setAttribute('content', messages.meta.title)
   const ogDesc = document.querySelector('meta[property="og:description"]')
   if (ogDesc) ogDesc.setAttribute('content', messages.meta.description)
+  const ogLocale = document.querySelector('meta[property="og:locale"]')
+  if (ogLocale) ogLocale.setAttribute('content', OG_LOCALE[locale])
+  const ogImageAlt = document.querySelector('meta[property="og:image:alt"]')
+  if (ogImageAlt) ogImageAlt.setAttribute('content', messages.meta.ogImageAlt)
+
   const twTitle = document.querySelector('meta[name="twitter:title"]')
   if (twTitle) twTitle.setAttribute('content', messages.meta.title)
   const twDesc = document.querySelector('meta[name="twitter:description"]')
   if (twDesc) twDesc.setAttribute('content', messages.meta.description)
+  const twImageAlt = document.querySelector('meta[name="twitter:image:alt"]')
+  if (twImageAlt) twImageAlt.setAttribute('content', messages.meta.ogImageAlt)
+
+  // Canonical + hreflang stay on the single SPA URL (static HTML). Do not invent
+  // language-specific paths for client-only locale switching.
 }
 
 type LocaleContextValue = {
@@ -92,7 +108,7 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     applyDocumentLang(locale)
-    applyDocumentMeta(t)
+    applyDocumentMeta(locale, t)
   }, [locale, t])
 
   const value = useMemo(

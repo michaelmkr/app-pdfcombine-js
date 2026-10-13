@@ -11,7 +11,7 @@
         "PDF zusammenfügen"
       ],
       "url": "https://combinepdf.makertechnologies.at/",
-      "description": "PDFs kombinieren, zusammenfügen und mergen — lokal im Browser ohne Upload. DSGVO-freundlich by design (nicht zertifiziert), kein KI-Upload, keine Cloud-Verarbeitung.",
+      "description": "PDFs kombinieren, zusammenfügen und mergen — lokal im Browser ohne Upload. DSGVO-freundlich durch Architektur (nicht zertifiziert), kein KI-Upload, keine Cloud-Verarbeitung. Vollständige Oberfläche auf Deutsch und Englisch (clientseitiger Sprachumschalter).",
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript. Runs entirely in the browser.",
@@ -38,7 +38,8 @@
         "Lokal im Browser mergen",
         "Seiten neu ordnen und einzeln kombinieren",
         "Kein Konto, keine Cloud-Verarbeitung, kein KI-Upload",
-        "Passwortgeschützte PDFs werden nicht geöffnet"
+        "Passwortgeschützte PDFs werden nicht geöffnet",
+        "Vollständige DE/EN-Oberfläche (clientseitiger Sprachumschalter)"
       ],
       "screenshot": "https://combinepdf.makertechnologies.at/og-image.png"
     },
@@ -47,8 +48,8 @@
       "@id": "https://combinepdf.makertechnologies.at/#website",
       "url": "https://combinepdf.makertechnologies.at/",
       "name": "PDF Kombinierer",
-      "description": "PDF kombinieren, mergen und zusammenfügen — online nutzen, Dateien bleiben lokal.",
-      "inLanguage": "de",
+      "description": "PDF kombinieren, mergen und zusammenfügen — online nutzen, Dateien bleiben lokal. UI in Deutsch und Englisch.",
+      "inLanguage": ["de", "en"],
       "publisher": {
         "@type": "Person",
         "name": "Michael Macher",
@@ -58,61 +59,186 @@
     {
       "@type": "FAQPage",
       "@id": "https://combinepdf.makertechnologies.at/#faq",
+      "inLanguage": ["de", "en"],
       "mainEntity": [
         {
           "@type": "Question",
+          "inLanguage": "de",
           "name": "Was ist PDF Kombinierer?",
           "acceptedAnswer": {
             "@type": "Answer",
+            "inLanguage": "de",
             "text": "PDF Kombinierer von Michael Macher ist ein Browser-Tool, mit dem Sie PDFs lokal kombinieren, zusammenfügen und mergen. Es läuft als statische Website; Ihre Dokumente werden nicht zur Verarbeitung auf Server hochgeladen."
           }
         },
         {
           "@type": "Question",
+          "inLanguage": "de",
           "name": "Werden meine PDFs hochgeladen?",
           "acceptedAnswer": {
             "@type": "Answer",
+            "inLanguage": "de",
             "text": "Nein. Dateien werden nur lokal im Browser geöffnet und verbunden. Es gibt keinen Upload zu einem Server und keine Cloud-Verarbeitung. In der Produktionsversion blockiert eine Content-Security-Policy (connect-src none) Netzwerkanfragen der Seite."
           }
         },
         {
           "@type": "Question",
+          "inLanguage": "de",
           "name": "Kann ich PDFs online mergen ohne Upload?",
           "acceptedAnswer": {
             "@type": "Answer",
+            "inLanguage": "de",
             "text": "Ja. „Online“ bedeutet hier nur, dass die App über das Web geladen wird — PDF-Inhalte bleiben auf Ihrem Gerät. Kein Konto, kein KI-Upload."
           }
         },
         {
           "@type": "Question",
+          "inLanguage": "de",
           "name": "Warum ist das DSGVO-freundlich?",
           "acceptedAnswer": {
             "@type": "Answer",
+            "inLanguage": "de",
             "text": "Zusammenfügen passiert nur auf Ihrem Gerät; PDF-Inhalte gehen nicht an fremde Server zur Verarbeitung. „DSGVO-freundlich“ beschreibt die Architektur — das ist kein Zertifizierungsanspruch (nicht „DSGVO-zertifiziert“)."
           }
         },
         {
           "@type": "Question",
+          "inLanguage": "de",
           "name": "Wie funktioniert das Zusammenfügen?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "PDFs per Drag & Drop oder Dateiauswahl hinzufügen, Reihenfolge per Kacheln festlegen (optional Seiten einzeln sortieren), dann mit „Merge PDFs“ lokal speichern. Schließen des Tabs entfernt die Dateien aus dem Arbeitsspeicher."
+            "inLanguage": "de",
+            "text": "PDFs per Drag & Drop oder Dateiauswahl hinzufügen, Reihenfolge per Kacheln festlegen (optional Seiten einzeln sortieren), dann mit „PDFs zusammenfügen“ lokal speichern. Schließen des Tabs entfernt die Dateien aus dem Arbeitsspeicher."
           }
         },
         {
           "@type": "Question",
+          "inLanguage": "de",
           "name": "Ist PDF Kombinierer Open Source?",
           "acceptedAnswer": {
             "@type": "Answer",
+            "inLanguage": "de",
             "text": "Nein. Der eigene Quellcode steht unter der PolyForm Noncommercial License 1.0.0 (source-available). Das ist nicht OSI Open Source, weil kommerzielle Nutzung unter dieser Lizenz nicht erlaubt ist. Abhängigkeiten behalten ihre eigenen Lizenzen."
           }
         },
         {
           "@type": "Question",
+          "inLanguage": "de",
           "name": "Welche Grenzen gibt es?",
           "acceptedAnswer": {
             "@type": "Answer",
+            "inLanguage": "de",
             "text": "Passwortgeschützte bzw. verschlüsselte PDFs können hier nicht geöffnet oder kombiniert werden und werden übersprungen. Beschädigte Dateien ebenfalls. Der Projekt-Quellcode steht unter PolyForm Noncommercial 1.0.0 (nichtkommerziell; kein OSI Open Source). Das Tool ist kein vollständiger PDF-Editor."
+          }
+        },
+        {
+          "@type": "Question",
+          "inLanguage": "de",
+          "name": "Gibt es KI-Upload?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "inLanguage": "de",
+            "text": "Nein. Kein KI-Upload und keine KI-Cloud-Verarbeitung Ihrer PDFs. Das Tool ist kein KI-System."
+          }
+        },
+        {
+          "@type": "Question",
+          "inLanguage": "de",
+          "name": "Welche Sprachen gibt es?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "inLanguage": "de",
+            "text": "Deutsch und Englisch — vollständige Oberfläche inkl. Datenschutztexte, Werkzeug-UI, Fehler und FAQ. Umschalter in der Kopfzeile; Präferenz lokal im Browser. Eine URL, keine separate EN-Landingpage."
+          }
+        },
+        {
+          "@type": "Question",
+          "inLanguage": "en",
+          "name": "What is PDF Kombinierer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "inLanguage": "en",
+            "text": "PDF Kombinierer by Michael Macher is a browser tool to combine, join and merge PDFs locally. It runs as a static website; your documents are not uploaded to a server for processing."
+          }
+        },
+        {
+          "@type": "Question",
+          "inLanguage": "en",
+          "name": "Are my PDFs uploaded?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "inLanguage": "en",
+            "text": "No. Files are opened and joined only locally in the browser. There is no upload to a server and no cloud processing. In production, a Content-Security-Policy (connect-src none) blocks network requests from the page."
+          }
+        },
+        {
+          "@type": "Question",
+          "inLanguage": "en",
+          "name": "Can I merge PDFs online without upload?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "inLanguage": "en",
+            "text": "Yes. “Online” here only means the app is loaded over the web — PDF contents stay on your device. No account, no AI upload."
+          }
+        },
+        {
+          "@type": "Question",
+          "inLanguage": "en",
+          "name": "Why is this GDPR-friendly?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "inLanguage": "en",
+            "text": "Merging happens only on your device; PDF contents are not sent to third-party servers for processing. “GDPR-friendly” describes the architecture — it is not a certification claim (not “GDPR-certified”)."
+          }
+        },
+        {
+          "@type": "Question",
+          "inLanguage": "en",
+          "name": "How does merging work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "inLanguage": "en",
+            "text": "Add PDFs via drag & drop or file picker, set the order with tiles (optionally sort individual pages), then save locally with “Merge PDFs”. Closing the tab clears the files from memory."
+          }
+        },
+        {
+          "@type": "Question",
+          "inLanguage": "en",
+          "name": "Is PDF Kombinierer open source?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "inLanguage": "en",
+            "text": "No. The project’s own source code is under the PolyForm Noncommercial License 1.0.0 (source-available). That is not OSI Open Source, because commercial use is not allowed under this license. Dependencies keep their own licenses."
+          }
+        },
+        {
+          "@type": "Question",
+          "inLanguage": "en",
+          "name": "What are the limits?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "inLanguage": "en",
+            "text": "Password-protected or encrypted PDFs cannot be opened or combined here and are skipped. Damaged files likewise. Project source code is under PolyForm Noncommercial 1.0.0 (noncommercial; not OSI Open Source). The tool is not a full PDF editor."
+          }
+        },
+        {
+          "@type": "Question",
+          "inLanguage": "en",
+          "name": "Is there AI upload?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "inLanguage": "en",
+            "text": "No. No AI upload and no cloud AI processing of your PDFs. The tool is not an AI system."
+          }
+        },
+        {
+          "@type": "Question",
+          "inLanguage": "en",
+          "name": "What languages are available?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "inLanguage": "en",
+            "text": "German and English — full UI including trust/privacy copy, tool chrome, errors, and FAQ. Header language switcher; preference stored locally in the browser. One URL; no separate English landing page."
           }
         }
       ]

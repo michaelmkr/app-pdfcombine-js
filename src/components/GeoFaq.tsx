@@ -26,9 +26,9 @@ export function GeoFaq() {
             <dd>
               {fact.id === 'author' ? (
                 <>
-                  Michael Macher —{' '}
+                  {geo.authorName} —{' '}
                   <a href={AUTHOR_URL} target="_blank" rel="noopener noreferrer">
-                    michaelmacher.com
+                    {geo.authorSiteLabel}
                   </a>
                 </>
               ) : fact.id === 'liveUrl' ? (

@@ -1,7 +1,7 @@
 export type Locale = 'de' | 'en'
 
 export type GeoFact = {
-  id: 'name' | 'author' | 'liveUrl' | 'license' | 'privacy'
+  id: 'name' | 'author' | 'liveUrl' | 'license' | 'privacy' | 'languages'
   term: string
   definition: string
 }
@@ -15,6 +15,8 @@ export type Messages = {
   meta: {
     title: string
     description: string
+    /** Open Graph / Twitter image alt (locale-aware) */
+    ogImageAlt: string
   }
   brand: {
     by: string
@@ -125,6 +127,8 @@ export type Messages = {
     faqHeading: string
     machineReadable: string
     imprint: string
+    authorName: string
+    authorSiteLabel: string
     steps: string[]
     facts: GeoFact[]
     faq: GeoFaqItem[]

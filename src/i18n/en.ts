@@ -5,6 +5,7 @@ export const en: Messages = {
     title: 'Combine & merge PDFs — online without upload | PDF Kombinierer',
     description:
       'Combine, join and merge PDFs — locally in your browser, no upload. GDPR-friendly by design (not certified), no AI upload, no cloud. PDF Kombinierer by Michael Macher.',
+    ogImageAlt: 'PDF Kombinierer — merge PDFs without upload',
   },
   brand: {
     by: 'by',
@@ -123,6 +124,8 @@ export const en: Messages = {
     faqHeading: 'Frequently asked questions',
     machineReadable: 'Machine-readable:',
     imprint: 'Imprint',
+    authorName: 'Michael Macher',
+    authorSiteLabel: 'michaelmacher.com',
     steps: [
       'Drop PDFs or choose files / a folder — nothing is uploaded.',
       'Set the order by drag-and-drop; optionally arrange individual pages.',
@@ -154,7 +157,13 @@ export const en: Messages = {
         id: 'privacy',
         term: 'Privacy model',
         definition:
-          'PDFs are read and merged only on the device; no upload for processing, no network telemetry channel for PDF contents. GDPR-friendly by design — not certified.',
+          'PDFs are read and merged only on the device; no upload for processing, no network telemetry channel for PDF contents. GDPR-friendly by architecture — not certified.',
+      },
+      {
+        id: 'languages',
+        term: 'Languages',
+        definition:
+          'German and English — full UI with a header language switcher; preference stored locally in the browser (one language at a time, no mixed DE/EN chrome).',
       },
     ],
     faq: [
@@ -192,6 +201,16 @@ export const en: Messages = {
         question: 'What are the limits?',
         answer:
           'Password-protected or encrypted PDFs cannot be opened or combined here and are skipped. Damaged files likewise. Project source code is under PolyForm Noncommercial 1.0.0 (noncommercial; not OSI Open Source). The tool is not a full PDF editor.',
+      },
+      {
+        question: 'Is there AI upload?',
+        answer:
+          'No. No AI upload and no cloud AI processing of your PDFs. The tool is not an AI system.',
+      },
+      {
+        question: 'What languages are available?',
+        answer:
+          'German and English — full UI including trust/privacy copy, tool chrome, errors, and FAQ. Header language switcher; preference stored locally in the browser. One URL; no separate English landing page.',
       },
     ],
   },
