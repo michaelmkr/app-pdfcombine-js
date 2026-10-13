@@ -61,10 +61,18 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Werden meine PDFs hochgeladen, wenn ich sie kombiniere?",
+          "name": "Was ist PDF Kombinierer?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Nein. PDF Kombinierer öffnet und verbindet Ihre Dateien nur lokal in Ihrem Browser. Es gibt keinen Upload zu einem Server und keine Cloud-Verarbeitung. In der Produktionsversion blockiert eine Content-Security-Policy (connect-src none) Netzwerkanfragen der Seite."
+            "text": "PDF Kombinierer von Michael Macher ist ein Browser-Tool, mit dem Sie PDFs lokal kombinieren, zusammenfügen und mergen. Es läuft als statische Website; Ihre Dokumente werden nicht zur Verarbeitung auf Server hochgeladen."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Werden meine PDFs hochgeladen?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nein. Dateien werden nur lokal im Browser geöffnet und verbunden. Es gibt keinen Upload zu einem Server und keine Cloud-Verarbeitung. In der Produktionsversion blockiert eine Content-Security-Policy (connect-src none) Netzwerkanfragen der Seite."
           }
         },
         {
@@ -72,31 +80,23 @@
           "name": "Kann ich PDFs online mergen ohne Upload?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Ja. Sie öffnen die Web-App im Browser, wählen oder ziehen PDFs hinein und mergen sie auf Ihrem Gerät. „Online“ bedeutet hier nur, dass die App über das Web geladen wird — Ihre PDF-Inhalte bleiben lokal."
+            "text": "Ja. „Online“ bedeutet hier nur, dass die App über das Web geladen wird — PDF-Inhalte bleiben auf Ihrem Gerät. Kein Konto, kein KI-Upload."
           }
         },
         {
           "@type": "Question",
-          "name": "Ist PDF zusammenfügen mit diesem Tool DSGVO-freundlich?",
+          "name": "Warum ist das DSGVO-freundlich?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Das Tool ist so gebaut, dass PDF-Inhalte nicht an fremde Server gehen: Zusammenfügen läuft nur auf Ihrem Gerät, ohne Konto und ohne KI-Upload. Das ist keine Zertifizierung (nicht DSGVO-zertifiziert), sondern die technische Funktionsweise."
+            "text": "Zusammenfügen passiert nur auf Ihrem Gerät; PDF-Inhalte gehen nicht an fremde Server zur Verarbeitung. „DSGVO-freundlich“ beschreibt die Architektur — das ist kein Zertifizierungsanspruch (nicht „DSGVO-zertifiziert“)."
           }
         },
         {
           "@type": "Question",
-          "name": "Wie kann ich mehrere PDFs lokal verbinden und sortieren?",
+          "name": "Wie funktioniert das Zusammenfügen?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Dateien per Drag-and-Drop oder Dateiauswahl hinzufügen, Kacheln in die gewünschte Reihenfolge ziehen, optional einzelne Seiten einblenden und neu ordnen, dann mit „Merge PDFs“ speichern. Alles bleibt auf Ihrem Computer."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Können passwortgeschützte PDFs kombiniert werden?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Nein. Verschlüsselte bzw. passwortgeschützte PDFs können hier nicht geöffnet werden und werden übersprungen."
+            "text": "PDFs per Drag & Drop oder Dateiauswahl hinzufügen, Reihenfolge per Kacheln festlegen (optional Seiten einzeln sortieren), dann mit „Merge PDFs“ lokal speichern. Schließen des Tabs entfernt die Dateien aus dem Arbeitsspeicher."
           }
         },
         {
@@ -105,6 +105,14 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Nein. Der eigene Quellcode steht unter der PolyForm Noncommercial License 1.0.0 (source-available). Das ist nicht OSI Open Source, weil kommerzielle Nutzung unter dieser Lizenz nicht erlaubt ist. Abhängigkeiten behalten ihre eigenen Lizenzen."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Welche Grenzen gibt es?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Passwortgeschützte bzw. verschlüsselte PDFs können hier nicht geöffnet oder kombiniert werden und werden übersprungen. Beschädigte Dateien ebenfalls. Der Projekt-Quellcode steht unter PolyForm Noncommercial 1.0.0 (nichtkommerziell; kein OSI Open Source). Das Tool ist kein vollständiger PDF-Editor."
           }
         }
       ]

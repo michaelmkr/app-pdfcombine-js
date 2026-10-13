@@ -60,6 +60,11 @@ export const GEO_FAQ: GeoFaqItem[] = [
       'PDFs per Drag & Drop oder Dateiauswahl hinzufügen, Reihenfolge per Kacheln festlegen (optional Seiten einzeln sortieren), dann mit „Merge PDFs“ lokal speichern. Schließen des Tabs entfernt die Dateien aus dem Arbeitsspeicher.',
   },
   {
+    question: 'Ist PDF Kombinierer Open Source?',
+    answer:
+      'Nein. Der eigene Quellcode steht unter der PolyForm Noncommercial License 1.0.0 (source-available). Das ist nicht OSI Open Source, weil kommerzielle Nutzung unter dieser Lizenz nicht erlaubt ist. Abhängigkeiten behalten ihre eigenen Lizenzen.',
+  },
+  {
     question: 'Welche Grenzen gibt es?',
     answer:
       'Passwortgeschützte bzw. verschlüsselte PDFs können hier nicht geöffnet oder kombiniert werden und werden übersprungen. Beschädigte Dateien ebenfalls. Der Projekt-Quellcode steht unter PolyForm Noncommercial 1.0.0 (nichtkommerziell; kein OSI Open Source). Das Tool ist kein vollständiger PDF-Editor.',
