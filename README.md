@@ -2,15 +2,17 @@
 
 **PDF Kombinierer** von Michael Macher — combine several PDFs into one file on your computer. Your documents are never uploaded. Other online tools send your files to their servers (sometimes including AI processing); this one does not.
 
-**Live app:** [http://combinepdf.makertechnologies.at/](http://combinepdf.makertechnologies.at/)
+**Live app:** [https://combinepdf.makertechnologies.at/](https://combinepdf.makertechnologies.at/)
 
 **Language:** German trust/privacy copy (hero + footer, Impressum); English tool UI (buttons, errors, workspace).
+
+**Versioning:** See [CHANGELOG.md](CHANGELOG.md) for release history and [RELEASING.md](RELEASING.md) for how to cut a version. GitHub Releases track tagged versions (`vX.Y.Z`).
 
 ## Privacy & security
 
 - **No uploads.** PDFs are opened and combined only on your device. Nothing is sent to a server for processing.
-- **DSGVO / GDPR-friendly.** Your files stay on your computer — no cloud processing, no data handed to our servers. Suitable for sensitive or personal documents. (Not a certification claim — just how the tool works.)
-- **No AI upload.** Merging runs in the browser only. There is no AI cloud processing of your PDFs. This is not an AI system and does not claim AI Act certification.
+- **DSGVO / GDPR-freundlich.** Your files stay on your computer — no cloud processing, no data handed to our servers. Suitable for sensitive or personal documents. (Not a certification claim — just how the tool works.)
+- **No AI upload / kein KI-Upload.** Merging runs in the browser only. There is no AI cloud processing of your PDFs. This is not an AI system and does not claim AI Act certification.
 - **Libraries stay with the app.** Combining uses [pdf-lib](https://pdf-lib.js.org/); previews use [PDF.js](https://mozilla.github.io/pdf.js/) with a bundled worker (no third-party CDN).
 - **Extra protection in production.** The built app blocks network requests from the page, so your files cannot be uploaded even by accident.
 - **Simple hosting.** A deployed instance only serves the website files (HTML, CSS, JavaScript). Closing the tab clears the PDFs from memory.
@@ -32,7 +34,7 @@ The only normal network use is **downloading the app** (HTML/JS/CSS) when you op
 
 ## How to use
 
-1. Open [https://combinepdf.makertechnologies.at/](http://combinepdf.makertechnologies.at/) (or run the app locally — see below).
+1. Open [https://combinepdf.makertechnologies.at/](https://combinepdf.makertechnologies.at/) (or run the app locally — see below).
 2. Drop PDFs anywhere on the page, or use **Choose files** / **Choose folder**.
 3. Drag tiles to set the order. Use **Show pages** to reorder or drop individual pages. Multi-select with click / Shift / Cmd-Ctrl; Delete removes the selection.
 4. Optionally set a save name (remembered on this computer), then **Merge PDFs** (or use Save As where the browser supports it).
@@ -40,11 +42,12 @@ The only normal network use is **downloading the app** (HTML/JS/CSS) when you op
 ## Features
 
 - **Drop anywhere** — drag PDFs onto the page
-- **Reorder freely** — drag tiles (whole files or single pages)
-- **Show pages** — split a file into sortable page tiles with lazy previews
+- **Gallery** — thumbnail tiles you can reorder freely (whole files or single pages)
+- **Show pages** — expand a file into sortable page tiles with lazy previews
 - **Bulk select** — Shift/Cmd-Ctrl selection, keyboard shortcuts, remove selected
 - **Remember prefs** — last filename; Chromium Save As folder when permitted
 - **Clear feedback** — progress for open / previews / combine / save; clear warnings for password-protected or damaged files
+- **Brand UI** — michaelmacher.at colors and typography (Montserrat / Playfair Display)
 - **Download / Save As** — save picker when the browser supports it; otherwise a normal download
 - Multi-file and folder selection (folder pick where the browser supports it)
 
