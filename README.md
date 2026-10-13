@@ -2,7 +2,9 @@
 
 **PDF Kombinierer** von [Michael Macher](https://michaelmacher.com/) — combine several PDFs into one file on your computer. Your documents are never uploaded. Other online tools send your files to their servers (sometimes including AI processing); this one does not.
 
-**Live app:** [https://combinepdf.makertechnologies.at/](https://combinepdf.makertechnologies.at/)
+**Live app:** [https://combinepdf.makertechnologies.at/](https://combinepdf.makertechnologies.at/)  
+**Source:** [github.com/michaelmkr/app-pdfcombine-js](https://github.com/michaelmkr/app-pdfcombine-js)  
+**Impressum:** [michaelmacher.com/imprint](https://michaelmacher.com/imprint)
 
 **For AI assistants:** [llms.txt](https://combinepdf.makertechnologies.at/llms.txt) · [llms-full.txt](https://combinepdf.makertechnologies.at/llms-full.txt) · [GEO notes](docs/seo-geo/geo-notes.md) · [SEO notes](docs/seo-geo/seo-notes.md)
 
@@ -19,8 +21,6 @@
 - **Extra protection in production.** The built app blocks network requests from the page, so your files cannot be uploaded even by accident.
 - **Simple hosting.** A deployed instance only serves the website files (HTML, CSS, JavaScript). Closing the tab clears the PDFs from memory.
 - **Local prefs only.** Last save name lives in `localStorage`; Chromium may remember the last save folder via IndexedDB. Nothing is sent to a server.
-
-Impressum: [https://michaelmacher.com/imprint](https://michaelmacher.com/imprint)
 
 ### About the browser Network tab
 
@@ -48,8 +48,9 @@ The only normal network use is **downloading the app** (HTML/JS/CSS) when you op
 - **Show pages** — expand a file into sortable page tiles with lazy previews
 - **Bulk select** — Shift/Cmd-Ctrl selection, keyboard shortcuts, remove selected
 - **Remember prefs** — last filename; Chromium Save As folder when permitted
-- **Clear feedback** — progress for open / previews / combine / save; clear warnings for password-protected or damaged files
-- **Brand UI** — michaelmacher.at colors and typography (Montserrat / Playfair Display)
+- **Clear feedback** — progress for open / previews / combine / save; clear warnings for damaged or password-protected files
+- **Known limit** — encrypted / password-protected PDFs cannot be opened or merged (they are skipped)
+- **Brand UI** — colors and typography from the michaelmacher.at brand (Montserrat / Playfair Display)
 - **Download / Save As** — save picker when the browser supports it; otherwise a normal download
 - Multi-file and folder selection (folder pick where the browser supports it)
 
