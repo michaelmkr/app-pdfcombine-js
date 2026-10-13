@@ -61,10 +61,11 @@ Classic search / SERP / crawler notes (Google, Bing, social previews). For assis
 | Footer | Impressum + `/llms.txt` |
 | OG / Twitter | Title, description, 1200×630 `og-image.png`, alts |
 | Theme color | Brand `#6e1622` |
+| `<noscript>` facts block | Short DE privacy/license summary in HTML shell for non-JS clients |
 
 ### Gaps / tensions
 
-1. **SPA crawlability:** Main FAQ/facts render via React. Non-JS crawlers still get meta + JSON-LD (build-injected) + static `/llms*.txt`. Full static FAQ HTML in the initial document remains backlog (shared with GEO P1).
+1. **SPA crawlability:** Main FAQ/facts still render via React. Non-JS crawlers get meta + JSON-LD (build-injected) + `<noscript>` + static `/llms*.txt`. Richer static FAQ HTML in the initial document remains backlog (shared with GEO P1).
 2. **Keyword vs trust-copy tension:** Title/meta may use “kombinieren / zusammenfügen / mergen”; **visible hero must stay trust-first**. GeoFaq heading uses natural “PDFs lokal zusammenfügen” — avoid repeating the full verb triad in UI.
 3. **Bilingual UI:** German trust + English chrome can look mixed to crawlers; document in meta/GEO rather than forcing EN hero.
 4. **Keywords meta** omitted on purpose; do not reintroduce stuffing lists.
