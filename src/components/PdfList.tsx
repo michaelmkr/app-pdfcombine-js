@@ -13,6 +13,7 @@ import {
   sortableKeyboardCoordinates,
   rectSortingStrategy,
 } from '@dnd-kit/sortable'
+import { useLocale } from '../i18n'
 import type { MergeItem, PdfDocument } from '../types'
 import { countMergePages } from '../lib/mergePdfs'
 import { PdfTile } from './PdfTile'
@@ -43,6 +44,7 @@ export function PdfList({
   onRemoveSelected,
   disabled,
 }: PdfListProps) {
+  const { t } = useLocale()
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
     useSensor(KeyboardSensor, {
@@ -62,14 +64,15 @@ export function PdfList({
   const totalPages = countMergePages(items, docsById)
 
   return (
-    <section className="pdf-list" aria-label="Your PDFs">
+    <section className="pdf-list" aria-label={t.gallery.aria}>
       <div className="pdf-list__header">
         <h2>
-          Your PDFs
+          {t.gallery.title}
           <span className="pdf-list__count">
-            {fileCount} {fileCount === 1 ? 'file' : 'files'} · {items.length}{' '}
-            {items.length === 1 ? 'item' : 'items'} · {totalPages}{' '}
-            {totalPages === 1 ? 'page' : 'pages'}
+            {fileCount} {fileCount === 1 ? t.gallery.file : t.gallery.files} ·{' '}
+            {items.length}{' '}
+            {items.length === 1 ? t.gallery.item : t.gallery.items} ·{' '}
+            {totalPages} {totalPages === 1 ? t.gallery.page : t.gallery.pages}
           </span>
         </h2>
         <button
@@ -78,7 +81,7 @@ export function PdfList({
           disabled={disabled}
           onClick={onClear}
         >
-          Clear all
+          {t.gallery.clearAll}
         </button>
       </div>
 

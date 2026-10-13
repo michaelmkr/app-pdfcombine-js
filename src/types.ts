@@ -37,3 +37,11 @@ export type AppStatus =
   | { phase: 'thumbs' }
   | { phase: 'merging'; current: number; total: number }
   | { phase: 'saving' }
+
+/** Stable keys for user-facing errors (translated at render time). */
+export type AppErrorKey =
+  | 'noPdfsSelected'
+  | 'noUsablePdfs'
+  | 'openFailed'
+  | 'mergeFailed'
+  | 'passwordProtected'

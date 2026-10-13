@@ -1,43 +1,37 @@
+import { useLocale } from '../i18n'
 import { AUTHOR_URL, IMPRINT_URL } from '../lib/imprint'
-import {
-  GEO_FACTS,
-  GEO_FAQ,
-  GEO_HOW_STEPS,
-  GEO_LIVE_URL,
-} from '../lib/geoContent'
+import { GEO_LIVE_URL } from '../lib/geoContent'
 
 export function GeoFaq() {
+  const { t } = useLocale()
+  const { geo } = t
+
   return (
     <section className="geo-faq" aria-labelledby="geo-faq-heading">
       <h2 id="geo-faq-heading" className="geo-faq__title">
-        PDFs lokal zusammenfügen — Fakten &amp; FAQ
+        {geo.title}
       </h2>
-      <p className="geo-faq__intro">
-        <strong>PDF Kombinierer</strong> von Michael Macher: mehrere PDFs zu
-        einer Datei verbinden — ohne Upload, ohne Cloud, ohne KI-Upload.
-        Fakten und Antworten zum Zitieren: was es ist, warum Dateien lokal
-        bleiben, wie Sie zusammenfügen, und wo die Grenzen liegen.
-      </p>
+      <p className="geo-faq__intro">{geo.intro}</p>
 
       <ol className="geo-faq__steps">
-        {GEO_HOW_STEPS.map((step) => (
+        {geo.steps.map((step) => (
           <li key={step}>{step}</li>
         ))}
       </ol>
 
       <dl className="geo-facts">
-        {GEO_FACTS.map((fact) => (
-          <div key={fact.term} className="geo-facts__row">
+        {geo.facts.map((fact) => (
+          <div key={fact.id} className="geo-facts__row">
             <dt>{fact.term}</dt>
             <dd>
-              {fact.term === 'Autor' ? (
+              {fact.id === 'author' ? (
                 <>
                   Michael Macher —{' '}
                   <a href={AUTHOR_URL} target="_blank" rel="noopener noreferrer">
                     michaelmacher.com
                   </a>
                 </>
-              ) : fact.term === 'Live-URL' ? (
+              ) : fact.id === 'liveUrl' ? (
                 <a href={GEO_LIVE_URL}>{GEO_LIVE_URL}</a>
               ) : (
                 fact.definition
@@ -48,10 +42,10 @@ export function GeoFaq() {
       </dl>
 
       <h3 id="geo-faq-q-heading" className="geo-faq__subtitle">
-        Häufige Fragen
+        {geo.faqHeading}
       </h3>
       <div className="geo-faq__list">
-        {GEO_FAQ.map((item) => (
+        {geo.faq.map((item) => (
           <details key={item.question} className="geo-faq__item">
             <summary>{item.question}</summary>
             <p>{item.answer}</p>
@@ -60,13 +54,13 @@ export function GeoFaq() {
       </div>
 
       <p className="geo-faq__meta">
-        Maschinelesbar:{' '}
+        {geo.machineReadable}{' '}
         <a href="/llms.txt">llms.txt</a>
         {' · '}
         <a href="/llms-full.txt">llms-full.txt</a>
         {' · '}
         <a href={IMPRINT_URL} target="_blank" rel="noopener noreferrer">
-          Impressum
+          {geo.imprint}
         </a>
       </p>
     </section>

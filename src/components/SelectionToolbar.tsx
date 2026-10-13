@@ -1,3 +1,5 @@
+import { useLocale } from '../i18n'
+
 type SelectionToolbarProps = {
   selectedCount: number
   onRemoveSelected: () => void
@@ -9,12 +11,14 @@ export function SelectionToolbar({
   onRemoveSelected,
   disabled,
 }: SelectionToolbarProps) {
+  const { t } = useLocale()
+
   if (selectedCount === 0) return null
 
   return (
-    <div className="selection-toolbar" role="toolbar" aria-label="Selection">
+    <div className="selection-toolbar" role="toolbar" aria-label={t.selection.aria}>
       <span className="selection-toolbar__count">
-        {selectedCount} selected
+        {t.selection.selected(selectedCount)}
       </span>
       <button
         type="button"
@@ -22,7 +26,7 @@ export function SelectionToolbar({
         disabled={disabled}
         onClick={onRemoveSelected}
       >
-        Remove selected
+        {t.selection.removeSelected}
       </button>
     </div>
   )

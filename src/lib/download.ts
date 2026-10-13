@@ -11,8 +11,13 @@ export function ensurePdfExtension(name: string): string {
  * (Chromium), otherwise falls back to a classic download link.
  * Returns true if a file was written/downloaded, false if the user cancelled.
  */
-export async function savePdf(blob: Blob, filename: string): Promise<boolean> {
+export async function savePdf(
+  blob: Blob,
+  filename: string,
+  options?: { pdfDescription?: string },
+): Promise<boolean> {
   const name = ensurePdfExtension(filename)
+  const pdfDescription = options?.pdfDescription ?? 'PDF document'
 
   const picker = window.showSaveFilePicker
   if (typeof picker === 'function') {
@@ -23,7 +28,7 @@ export async function savePdf(blob: Blob, filename: string): Promise<boolean> {
         ...(startIn ? { startIn } : {}),
         types: [
           {
-            description: 'PDF document',
+            description: pdfDescription,
             accept: { 'application/pdf': ['.pdf'] },
           },
         ],

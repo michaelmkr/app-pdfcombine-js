@@ -3,6 +3,7 @@ import type { MouseEvent as ReactMouseEvent } from 'react'
 import { arrayMove } from '@dnd-kit/sortable'
 import { DropZone } from './components/DropZone'
 import { GlobalDropOverlay } from './components/GlobalDropOverlay'
+import { LanguageSwitcher } from './components/LanguageSwitcher'
 import { PdfList } from './components/PdfList'
 import { MergeBar } from './components/MergeBar'
 import { TrustHero } from './components/TrustHero'
@@ -10,6 +11,7 @@ import { TrustFooter } from './components/TrustFooter'
 import { GeoFaq } from './components/GeoFaq'
 import { StatusBanner } from './components/StatusBanner'
 import { WarningList } from './components/WarningList'
+import { useLocale } from './i18n'
 import { AUTHOR_URL } from './lib/imprint'
 import {
   loadPdfFiles,
@@ -19,7 +21,7 @@ import { countMergePages, mergePdfs } from './lib/mergePdfs'
 import { savePdf, ensurePdfExtension } from './lib/download'
 import { getLastFilename, setLastFilename } from './lib/prefs'
 import { renderPageThumbnail } from './lib/thumbnail'
-import type { AppStatus, MergeItem, PdfDocument, SkippedFile } from './types'
+import type { AppErrorKey, AppStatus, MergeItem, PdfDocument, SkippedFile } from './types'
 
 function fileItemFromDoc(doc: PdfDocument): MergeItem {
   return {
@@ -31,12 +33,13 @@ function fileItemFromDoc(doc: PdfDocument): MergeItem {
 }
 
 export default function App() {
+  const { t } = useLocale()
   const [docsById, setDocsById] = useState<Record<string, PdfDocument>>({})
   const [items, setItems] = useState<MergeItem[]>([])
   const [selectedIds, setSelectedIds] = useState<Set<string>>(() => new Set())
   const [filename, setFilename] = useState(() => getLastFilename())
   const [status, setStatus] = useState<AppStatus>({ phase: 'idle' })
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<AppErrorKey | null>(null)
   const [skipped, setSkipped] = useState<SkippedFile[]>([])
   const [lastAddedCount, setLastAddedCount] = useState(0)
   const lastAnchorRef = useRef<string | null>(null)
@@ -81,7 +84,7 @@ export default function App() {
     setSkipped([])
     const list = Array.from(files)
     if (list.length === 0) {
-      setError('No PDF files selected. Choose PDF files to continue.')
+      setError('noPdfsSelected')
       return
     }
     setStatus({ phase: 'loading', current: 0, total: list.length })
@@ -96,9 +99,7 @@ export default function App() {
         setSkipped(skippedFiles)
         setLastAddedCount(0)
         setError(
-          skippedFiles.length > 0
-            ? 'No usable PDFs found. Password-protected or damaged files were skipped.'
-            : 'No PDF files selected. Choose PDF files to continue.',
+          skippedFiles.length > 0 ? 'noUsablePdfs' : 'noPdfsSelected',
         )
         return
       }
@@ -111,7 +112,7 @@ export default function App() {
       setSkipped(skippedFiles)
       setLastAddedCount(loaded.length)
     } catch {
-      setError('Could not open one or more files. Try different PDFs.')
+      setError('openFailed')
     } finally {
       setStatus({ phase: 'idle' })
     }
@@ -326,25 +327,24 @@ export default function App() {
       })
       setStatus({ phase: 'saving' })
       const name = ensurePdfExtension(filename)
-      const saved = await savePdf(blob, name)
+      const saved = await savePdf(blob, name, {
+        pdfDescription: t.download.pdfDocument,
+      })
       if (saved) {
         setFilename(name)
         setLastFilename(name)
       }
     } catch (err) {
-      const message =
-        err instanceof Error
-          ? err.message
-          : 'Could not combine these PDFs. Try fewer files or different ones.'
+      const message = err instanceof Error ? err.message : ''
       setError(
         /encrypted|password/i.test(message)
-          ? 'One or more PDFs need a password and cannot be combined here.'
-          : message,
+          ? 'passwordProtected'
+          : 'mergeFailed',
       )
     } finally {
       setStatus({ phase: 'idle' })
     }
-  }, [docsById, items, filename, pageCount])
+  }, [docsById, items, filename, pageCount, t.download.pdfDocument])
 
   const hasFiles = items.length > 0
 
@@ -355,16 +355,19 @@ export default function App() {
       <div className="app__atmosphere" aria-hidden="true" />
 
       <header className="app__header">
-        <p className="app__eyebrow">
-          von{' '}
-          <a
-            href={AUTHOR_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Michael Macher
-          </a>
-        </p>
+        <div className="app__header-top">
+          <p className="app__eyebrow">
+            {t.brand.by}{' '}
+            <a
+              href={AUTHOR_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Michael Macher
+            </a>
+          </p>
+          <LanguageSwitcher />
+        </div>
         <h1>
           PDF <span className="app__accent">Kombinierer</span>
         </h1>

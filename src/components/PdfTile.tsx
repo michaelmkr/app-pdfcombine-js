@@ -1,6 +1,7 @@
 import type { MouseEvent } from 'react'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { useLocale } from '../i18n'
 import type { MergeItem, PdfDocument } from '../types'
 
 type PdfTileProps = {
@@ -49,6 +50,7 @@ export function PdfTile({
   onSelect,
   disabled,
 }: PdfTileProps) {
+  const { t } = useLocale()
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: item.id, disabled })
 
@@ -57,12 +59,12 @@ export function PdfTile({
     transition,
   }
 
-  const name = doc?.name ?? 'Unknown'
+  const name = doc?.name ?? t.tile.unknown
   const isPage = item.kind === 'page'
   const pageLabel = isPage ? (item.pageIndex ?? 0) + 1 : null
   const subtitle = isPage
-    ? `${name} · p. ${pageLabel}`
-    : `${doc?.pageCount ?? '?'} ${(doc?.pageCount ?? 0) === 1 ? 'page' : 'pages'}`
+    ? `${name} · ${t.tile.pageAbbrev(pageLabel!)}`
+    : t.tile.pagesCount(doc?.pageCount ?? 0)
   const canExpand =
     item.kind === 'file' && doc != null && doc.pageCount > 1 && onExpand != null
 
@@ -116,9 +118,11 @@ export function PdfTile({
           onRemove(item.id)
         }}
         aria-label={
-          isPage ? `Remove page ${pageLabel} of ${name}` : `Remove ${name}`
+          isPage
+            ? t.tile.removePage(pageLabel!, name)
+            : t.tile.removeNamed(name)
         }
-        title="Remove"
+        title={t.tile.remove}
       >
         <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true">
           <path
@@ -134,7 +138,9 @@ export function PdfTile({
         className="pdf-tile__thumb"
         role="img"
         aria-label={
-          isPage ? `Preview of ${name} page ${pageLabel}` : `Preview of ${name}`
+          isPage
+            ? t.tile.previewPage(name, pageLabel!)
+            : t.tile.preview(name)
         }
       >
         {item.thumbLoading ? (
@@ -150,7 +156,7 @@ export function PdfTile({
 
       <div className="pdf-tile__meta">
         <span className="pdf-tile__name" title={isPage ? subtitle : name}>
-          {isPage ? `Page ${pageLabel}` : name}
+          {isPage ? t.tile.pageLabel(pageLabel!) : name}
         </span>
         <span className="pdf-tile__details">{subtitle}</span>
         {canExpand ? (
@@ -164,7 +170,7 @@ export function PdfTile({
               onExpand(item.id)
             }}
           >
-            Show {doc?.pageCount} pages
+            {t.tile.showPages(doc!.pageCount)}
           </button>
         ) : null}
       </div>

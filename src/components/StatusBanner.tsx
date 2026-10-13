@@ -1,3 +1,4 @@
+import { useLocale } from '../i18n'
 import type { AppStatus } from '../types'
 import { statusMessage } from '../lib/status'
 
@@ -6,7 +7,8 @@ type StatusBannerProps = {
 }
 
 export function StatusBanner({ status }: StatusBannerProps) {
-  const message = statusMessage(status)
+  const { t } = useLocale()
+  const message = statusMessage(status, t.status)
   if (!message) return null
 
   return (

@@ -8,7 +8,7 @@
 
 **For AI assistants:** [llms.txt](https://combinepdf.makertechnologies.at/llms.txt) · [llms-full.txt](https://combinepdf.makertechnologies.at/llms-full.txt) · [GEO notes](docs/seo-geo/geo-notes.md) · [SEO notes](docs/seo-geo/seo-notes.md)
 
-**Language:** German trust/privacy copy (hero + footer, Impressum); English tool UI (buttons, errors, workspace).
+**Language:** Full UI i18n (German / English) with a header language switcher. Preference is stored in `localStorage` (`pdf-kombinierer-locale`); default follows the browser language (`de*` → German, otherwise English, fallback German).
 
 **Versioning:** See [CHANGELOG.md](CHANGELOG.md) for release history and [RELEASING.md](RELEASING.md) for how to cut a version. GitHub Releases track tagged versions (`vX.Y.Z`).
 

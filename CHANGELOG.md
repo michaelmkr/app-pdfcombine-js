@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Full DE/EN i18n with lightweight dicts (`src/i18n`), React locale context, and a brand-styled header language switcher; preference persisted in `localStorage` (`pdf-kombinierer-locale`); browser `de*` → DE else EN (fallback DE); `document.documentElement.lang` and client meta title/description update with locale
 - SEO first pass: keyword title/description, canonical, hreflang, Open Graph/Twitter, `og-image.png`, `robots.txt`, `sitemap.xml`, FAQPage/WebApplication JSON-LD (CSP-hashed inject), notes in `docs/seo-geo/seo-notes.md`
 - GEO first pass: `public/llms.txt` + `llms-full.txt`, on-page facts/FAQ (`GeoFaq` + `geoContent.ts`), notes in `docs/seo-geo/geo-notes.md`
 - JS-off `<noscript>` summary in `index.html` (entity, privacy, limits, llms links)
@@ -24,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- UI no longer mixes German trust copy with English tool chrome on the same screen — locale switch applies to the full UI (trust, gallery, merge bar, errors, FAQ/GEO, empty states)
 - GEO Round 2: spot-aligned `llms-full.txt` FAQ claims with `geoContent.ts` / FAQPage (shared Q&As)
 
 ## [1.0.0] - 2026-10-13

@@ -1,39 +1,47 @@
+import type { Messages } from '../i18n'
 import type { AppStatus } from '../types'
 
 /** Human-readable progress copy for the status banner. */
-export function statusMessage(status: AppStatus): string | null {
+export function statusMessage(
+  status: AppStatus,
+  t: Messages['status'],
+): string | null {
   switch (status.phase) {
     case 'idle':
       return null
     case 'loading':
-      return `Opening PDF ${status.current} of ${status.total}…`
+      return t.opening(status.current, status.total)
     case 'thumbs':
-      return 'Creating page previews…'
+      return t.thumbs
     case 'merging': {
       const pct =
         status.total > 0
           ? Math.round((status.current / status.total) * 100)
           : 0
-      return `Combining page ${status.current} of ${status.total}… (${pct}%)`
+      return t.combining(status.current, status.total, pct)
     }
     case 'saving':
-      return 'Saving your PDF…'
+      return t.saving
   }
 }
 
 /** Short label for the merge button while work is in progress. */
-export function busyButtonLabel(status: AppStatus): string {
+export function busyButtonLabel(
+  status: AppStatus,
+  t: Messages['status'],
+  mergeLabel: string,
+): string {
   switch (status.phase) {
     case 'loading':
-      return 'Opening…'
+      return t.busyOpening
     case 'thumbs':
-      return 'Previews…'
+      return t.busyThumbs
     case 'merging':
-      return 'Combining…'
+      return t.busyCombining
     case 'saving':
-      return 'Saving…'
+      return t.busySaving
     default:
-      return 'Merge PDFs'
+      return mergeLabel
   }
 }
 

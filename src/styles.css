@@ -157,13 +157,67 @@ input {
   animation: rise-in 0.55s var(--ease-out) both;
 }
 
+.app__header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.25rem;
+  margin-bottom: 0.65rem;
+  flex-wrap: wrap;
+}
+
 .app__eyebrow {
-  margin: 0 0 0.65rem;
+  margin: 0;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--primary);
+}
+
+.lang-switch {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid color-mix(in srgb, var(--primary) 35%, transparent);
+  border-radius: 999px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--surface) 88%, var(--primary) 4%);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--primary) 12%, transparent);
+}
+
+.lang-switch__btn {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 0.35rem 0.7rem;
+  min-width: 2.4rem;
+  font-family: var(--font);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.18s var(--ease-out), color 0.18s var(--ease-out);
+}
+
+.lang-switch__btn + .lang-switch__btn {
+  border-left: 1px solid color-mix(in srgb, var(--primary) 28%, transparent);
+}
+
+.lang-switch__btn:hover {
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+}
+
+.lang-switch__btn--active {
+  background: var(--primary);
+  color: #fff;
+}
+
+.lang-switch__btn--active:hover {
+  background: var(--primary-hover);
+  color: #fff;
 }
 
 .app__eyebrow a {

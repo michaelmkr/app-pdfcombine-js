@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { useLocale } from '../i18n'
 
 type DropZoneProps = {
   onFiles: (files: FileList | File[]) => void
@@ -9,6 +10,7 @@ type DropZoneProps = {
 
 /** Secondary add controls — global window drop handles drag-and-drop. */
 export function DropZone({ onFiles, disabled, compact }: DropZoneProps) {
+  const { t } = useLocale()
   const fileInputRef = useRef<HTMLInputElement>(null)
   const folderInputRef = useRef<HTMLInputElement>(null)
 
@@ -21,7 +23,7 @@ export function DropZone({ onFiles, disabled, compact }: DropZoneProps) {
     .join(' ')
 
   return (
-    <div className={className} role="region" aria-label="Add PDF files">
+    <div className={className} role="region" aria-label={t.dropzone.aria}>
       <div className="dropzone__visual" aria-hidden="true">
         <svg
           className="dropzone__glyph"
@@ -56,14 +58,10 @@ export function DropZone({ onFiles, disabled, compact }: DropZoneProps) {
       </div>
       <div className="dropzone__copy">
         <p className="dropzone__title">
-          {compact
-            ? 'Add more PDFs'
-            : 'Drop PDFs anywhere on this page'}
+          {compact ? t.dropzone.titleCompact : t.dropzone.title}
         </p>
         <p className="dropzone__hint">
-          {compact
-            ? 'or pick files or a folder — nothing uploaded, no AI cloud'
-            : 'Nothing here yet. Pick files or a folder to start. Your PDFs stay on this computer — no server upload, no AI processing.'}
+          {compact ? t.dropzone.hintCompact : t.dropzone.hint}
         </p>
       </div>
       <div className="dropzone__actions">
@@ -73,16 +71,16 @@ export function DropZone({ onFiles, disabled, compact }: DropZoneProps) {
           disabled={disabled}
           onClick={() => fileInputRef.current?.click()}
         >
-          Choose files
+          {t.dropzone.chooseFiles}
         </button>
         <button
           type="button"
           className="btn btn--secondary"
           disabled={disabled}
           onClick={() => folderInputRef.current?.click()}
-          title="Pick a whole folder (works best in Chrome or Edge)"
+          title={t.dropzone.folderTitle}
         >
-          Choose folder
+          {t.dropzone.chooseFolder}
         </button>
       </div>
       <input

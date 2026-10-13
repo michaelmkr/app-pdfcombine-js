@@ -1,3 +1,5 @@
+import { useLocale } from '../i18n'
+import type { AppErrorKey } from '../types'
 import type { AppStatus } from '../types'
 import { busyButtonLabel, progressRatio } from '../lib/status'
 
@@ -7,7 +9,7 @@ type MergeBarProps = {
   onMerge: () => void
   canMerge: boolean
   status: AppStatus
-  error: string | null
+  error: AppErrorKey | null
   itemCount: number
   pageCount: number
   totalSizeBytes: number
@@ -30,11 +32,12 @@ export function MergeBar({
   pageCount,
   totalSizeBytes,
 }: MergeBarProps) {
+  const { t } = useLocale()
   const busy = status.phase !== 'idle'
   const ratio = progressRatio(status)
 
   return (
-    <section className="merge-bar" aria-label="Merge PDFs">
+    <section className="merge-bar" aria-label={t.merge.aria}>
       {ratio != null ? (
         <div
           className="merge-bar__progress"
@@ -55,27 +58,27 @@ export function MergeBar({
             <div className="merge-bar__stat">
               <span className="merge-bar__stat-value">{itemCount}</span>
               <span className="merge-bar__stat-label">
-                {itemCount === 1 ? 'item' : 'items'}
+                {itemCount === 1 ? t.merge.item : t.merge.items}
               </span>
             </div>
             <div className="merge-bar__stat">
               <span className="merge-bar__stat-value">{pageCount}</span>
               <span className="merge-bar__stat-label">
-                {pageCount === 1 ? 'page' : 'pages'}
+                {pageCount === 1 ? t.merge.page : t.merge.pages}
               </span>
             </div>
             <div className="merge-bar__stat">
               <span className="merge-bar__stat-value">
                 {itemCount > 0 ? formatBytes(totalSizeBytes) : '—'}
               </span>
-              <span className="merge-bar__stat-label">size</span>
+              <span className="merge-bar__stat-label">{t.merge.size}</span>
             </div>
           </div>
 
           <div className="merge-bar__controls">
             <div className="merge-bar__field">
               <label className="merge-bar__label" htmlFor="output-filename">
-                Save as
+                {t.merge.saveAs}
               </label>
               <input
                 id="output-filename"
@@ -94,14 +97,16 @@ export function MergeBar({
               disabled={!canMerge || busy}
               onClick={onMerge}
             >
-              {busy ? busyButtonLabel(status) : 'Merge PDFs'}
+              {busy
+                ? busyButtonLabel(status, t.status, t.merge.mergePdfs)
+                : t.merge.mergePdfs}
             </button>
           </div>
         </div>
 
         {error ? (
           <p className="merge-bar__error" role="alert">
-            {error}
+            {t.errors[error]}
           </p>
         ) : null}
       </div>

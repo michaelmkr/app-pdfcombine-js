@@ -1,3 +1,5 @@
+import { useLocale } from '../i18n'
+
 function IconLock() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
@@ -32,14 +34,11 @@ function IconNoAi() {
 }
 
 export function TrustHero() {
+  const { t } = useLocale()
+
   return (
-    <section className="trust-hero" aria-label="Datenschutz und Funktionsweise">
-      <p className="trust-hero__lead">
-        Zusammenfügen ohne Upload — DSGVO-freundlich. Ihre Dateien gehen nicht
-        an fremde Server; nichts wird in der Cloud verarbeitet. Andere
-        Online-Tools schicken PDFs oft an Server (manchmal inkl. KI) — hier
-        passiert das Zusammenfügen nur lokal auf Ihrem Gerät, ohne KI-Upload.
-      </p>
+    <section className="trust-hero" aria-label={t.trust.aria}>
+      <p className="trust-hero__lead">{t.trust.lead}</p>
 
       <div className="trust-hero__strip" role="list">
         <div className="trust-hero__claim" role="listitem">
@@ -47,8 +46,8 @@ export function TrustHero() {
             <IconLock />
           </span>
           <div className="trust-hero__claim-text">
-            <strong>DSGVO-freundlich</strong>
-            <span>Keine Datenweitergabe an Server — gut für sensible Dokumente</span>
+            <strong>{t.trust.gdprTitle}</strong>
+            <span>{t.trust.gdprBody}</span>
           </div>
         </div>
         <div className="trust-hero__claim" role="listitem">
@@ -56,8 +55,8 @@ export function TrustHero() {
             <IconMonitor />
           </span>
           <div className="trust-hero__claim-text">
-            <strong>Alles auf Ihrem Gerät</strong>
-            <span>Zusammenfügen nur lokal — kein Konto, kein Cloud-Upload</span>
+            <strong>{t.trust.localTitle}</strong>
+            <span>{t.trust.localBody}</span>
           </div>
         </div>
         <div className="trust-hero__claim" role="listitem">
@@ -65,8 +64,8 @@ export function TrustHero() {
             <IconNoAi />
           </span>
           <div className="trust-hero__claim-text">
-            <strong>Kein KI-Upload</strong>
-            <span>Keine KI-Verarbeitung Ihrer PDFs — nur Zusammenfügen im Browser</span>
+            <strong>{t.trust.noAiTitle}</strong>
+            <span>{t.trust.noAiBody}</span>
           </div>
         </div>
       </div>

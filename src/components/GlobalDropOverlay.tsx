@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useLocale } from '../i18n'
 
 type GlobalDropOverlayProps = {
   onFiles: (files: FileList | File[]) => void
@@ -14,6 +15,7 @@ function dragHasFiles(e: DragEvent): boolean {
  * Shows an overlay while files are dragged over the page.
  */
 export function GlobalDropOverlay({ onFiles, disabled }: GlobalDropOverlayProps) {
+  const { t } = useLocale()
   const [active, setActive] = useState(false)
   const depthRef = useRef(0)
   const onFilesRef = useRef(onFiles)
@@ -94,10 +96,8 @@ export function GlobalDropOverlay({ onFiles, disabled }: GlobalDropOverlayProps)
   return (
     <div className="global-drop" role="presentation" aria-hidden="true">
       <div className="global-drop__panel">
-        <p className="global-drop__title">Drop to add</p>
-        <p className="global-drop__hint">
-          Your files stay on this computer — no upload, no AI cloud
-        </p>
+        <p className="global-drop__title">{t.dropOverlay.title}</p>
+        <p className="global-drop__hint">{t.dropOverlay.hint}</p>
       </div>
     </div>
   )
