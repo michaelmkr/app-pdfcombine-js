@@ -22,13 +22,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Controller SEO/GEO loop decisions + reality check in `docs/seo-geo/controller-log.md` (trust UI over stuffing; no dual schema mirror)
 - Round 2 SEO follow-up: verified production JSON-LD inject + matching CSP sha256; README discoverability links confirmed; author `sameAs` deferred (no GitHub URL in README); notes in `docs/seo-geo/seo-notes.md`
 - GEO Round 2: expanded `<noscript>` what/why/how/limits; `geo-notes.md` Round 2 follow-up subsection
-- SEO i18n catch-up: `seo-notes.md` documents single-URL SPA + client DE/EN switch (DE shell primary for SERP/hreflang/OG); drops obsolete mixed-language framing; keeps `hreflang` as `de` + `x-default` only (no same-URL `en`)
+- SEO i18n re-audit: `seo-notes.md` documents single-URL SPA + client DE/EN switch (DE shell primary; `hreflang` `de` + `x-default` only); bilingual FAQPage + bilingual `<noscript>`; client `og:locale` / image-alt updates with locale
 
 ### Fixed
 
 - UI no longer mixes German trust copy with English tool chrome on the same screen — locale switch applies to the full UI (trust, gallery, merge bar, errors, FAQ/GEO, empty states)
 - GEO Round 2: spot-aligned `llms-full.txt` FAQ claims with `geoContent.ts` / FAQPage (shared Q&As)
-- SEO/GEO copy no longer claims mixed DE trust / EN chrome; DE FAQ/noscript/JSON-LD use „PDFs zusammenfügen“ (aligned with DE i18n)
+- SEO/GEO copy no longer claims mixed DE trust / EN chrome; DE FAQ/noscript/JSON-LD use „PDFs zusammenfügen“; FAQPage + `<noscript>` cover both locales without mixed labels
 - GEO i18n catch-up: removed obsolete mixed-language UI claims from `llms*.txt`; DE+EN quotable facts; full EN FAQ in `llms-full.txt`; on-page geo facts/FAQ locale-driven (languages + KI-Upload); FAQPage DE+EN synced; honest DE+EN `<noscript>` (still no `hreflang="en"` / no fake EN URL); `geo-notes.md` i18n subsection
 
 ## [1.0.0] - 2026-10-13

@@ -2,7 +2,7 @@
 
 Classic search / SERP / crawler notes (Google, Bing, social previews). For assistant citeability see [`geo-notes.md`](./geo-notes.md).
 
-**Last updated:** 2026-10-13 (i18n catch-up)  
+**Last updated:** 2026-10-13 (i18n SEO re-audit)  
 **Live URL:** https://combinepdf.makertechnologies.at/  
 **Official name:** PDF Kombinierer  
 **Author:** Michael Macher — https://michaelmacher.com/  
@@ -17,7 +17,7 @@ Classic search / SERP / crawler notes (Google, Bing, social previews). For assis
 | Layer | Language behavior |
 |-------|-------------------|
 | Canonical / sitemap / robots | Single URL: `https://combinepdf.makertechnologies.at/` |
-| Static HTML shell (`index.html`) | **DE primary** for SERP: `lang="de"`, DE title/description, DE OG/Twitter, DE `<noscript>`, DE FAQPage JSON-LD |
+| Static HTML shell (`index.html`) | **DE primary** for SERP: `lang="de"`, DE title/description, DE OG/Twitter defaults; bilingual `<noscript>` (`lang="de"` + `lang="en"` articles); FAQPage JSON-LD DE+EN |
 | `hreflang` | `de` + `x-default` → same URL only. **No** `hreflang="en"` on the same URL (would imply a distinct EN document that does not exist) |
 | `og:locale` | Primary `de_AT`; alternates `de_DE`, `en_US` as **locale hints**, not alternate page URLs |
 | Client after hydrate | Full UI DE/EN via `src/i18n` + header switcher; preference in `localStorage` (`pdf-kombinierer-locale`); browser `de*` → DE else EN (fallback DE) |
@@ -70,7 +70,7 @@ EN discovery today: client UI + bilingual FAQPage / `<noscript>` / `llms-full.tx
 | Surface | Status |
 |---------|--------|
 | `index.html` `<title>` + meta description | Keyword-aware **DE** shell; includes ohne Upload + DSGVO-freundlich (nicht zertifiziert) + brand/author |
-| Client meta (`src/i18n` de/en `meta.*`) | Matches shell for DE; EN strings after locale switch |
+| Client meta (`src/i18n` de/en `meta.*`) | Title, description, `ogImageAlt`; applied to document + OG/Twitter/`og:locale` on locale switch |
 | `html lang="de"` (shell) | DE primary for crawlers; runtime may become `en` after client switch |
 | Canonical | `https://combinepdf.makertechnologies.at/` |
 | `hreflang` de + x-default | Same URL; no fake EN URL |
@@ -82,7 +82,7 @@ EN discovery today: client UI + bilingual FAQPage / `<noscript>` / `llms-full.tx
 | Footer | Impressum + `/llms.txt` (localized chrome) |
 | OG / Twitter | DE shell title/description/`og:locale=de_AT`; 1200×630 `og-image.png`; client refreshes title/description/`og:locale`/alts on locale change |
 | Theme color | Brand `#6e1622` |
-| `<noscript>` facts block | Short **DE** privacy/license summary in HTML shell for non-JS clients |
+| `<noscript>` facts block | Bilingual DE + EN articles (`lang` attributes); locale-consistent button labels (no mixed chrome) |
 
 ### Gaps / tensions
 
@@ -216,7 +216,7 @@ Align meta, OG, JSON-LD, README, llms*.txt, and GeoFaq whenever claims change.
 | CSP-safe schema injection | Same CSP constraints; prefer static briefs if JS-off |
 | DE shell + optional client EN | DE briefs primary; `llms*.txt` + FAQPage also carry EN FAQ (still one URL) |
 
-Keep [`geo-notes.md`](./geo-notes.md) claim table and this file’s guardrails identical in spirit. Copy drift between DE i18n FAQ, `llms*.txt`, and `structuredData.json` is a joint P1 risk. Assistants that cite “mixed-language UI” are outdated after `2c7715e`.
+Keep [`geo-notes.md`](./geo-notes.md) claim table and this file’s guardrails identical in spirit. Copy drift between i18n FAQ (DE/EN), `llms*.txt`, and `structuredData.json` is a joint P1 risk. Assistants that cite “mixed-language UI” are outdated after `2c7715e`.
 
 ---
 
@@ -267,20 +267,21 @@ Keep [`geo-notes.md`](./geo-notes.md) claim table and this file’s guardrails i
 
 ---
 
-## i18n catch-up (2026-10-13)
+## i18n SEO re-audit (2026-10-13)
 
-Short SEO pass after full DE/EN UI i18n (`2c7715e`). No ranking claims. Claim-surface fixes in `llms*` / FAQPage / `<noscript>` were coordinated with the GEO i18n catch-up.
+Findability pass after full DE/EN UI i18n (`2c7715e`). No ranking claims. Claim surfaces coordinated with GEO i18n catch-up.
 
 | Item | Result |
 |------|--------|
-| Mixed-language UI framing in `seo-notes` | **Rewritten** — single-URL SPA + client switch; DE shell primary for SERP/hreflang |
-| `hreflang` / canonical | **Kept `de` + `x-default` only;** removed mistaken same-URL `hreflang="en"` (no distinct EN document) |
-| `og:locale` + `en_US` alternate | **OK:** shell `de_AT` + alternates as locale hints; client may flip `og:locale` after hydrate |
-| `html lang` / client meta | **Documented:** shell `de`; runtime lang + title/description/`og:locale`/alts follow locale |
-| JSON-LD FAQ control label + EN Q&As | **Aligned** (with GEO): DE „PDFs zusammenfügen“; EN FAQ block + `inLanguage` tags present |
-| `<noscript>` / `llms*.txt` | **Aligned** (with GEO): no mixed DE trust / EN chrome claims; DE how-step uses DE button label |
+| Mixed-language UI framing | **Rewritten** — single-URL SPA + client switch; DE shell primary for SERP/hreflang |
+| Meta title/description + locale | **OK:** `src/i18n` `meta.*` (incl. `ogImageAlt`); runtime updates title, description, OG/Twitter, `og:locale`, image alts |
+| `hreflang` / canonical | **Kept `de` + `x-default` only;** no same-URL `hreflang="en"` (no distinct EN document) |
+| robots / sitemap / OG image | **OK:** single loc, absolute sitemap, absolute `og-image.png` |
+| FAQPage / structured data | **Bilingual:** DE+EN Q&As with per-entity `inLanguage`; WebApplication/WebSite/FAQPage `inLanguage: ["de","en"]` |
+| Crawlable HTML / `<noscript>` | **Bilingual** `<article lang>` blocks; no DE/EN label mix inside a locale block |
+| `llms.txt` / `llms-full.txt` | Full UI i18n documented; DE+EN FAQ; no mixed-chrome claim |
 | TrustHero redesign | **Skipped** (out of scope) |
 | CSP / analytics / keywords meta / fake EN page | **Not weakened** / not added |
-| Production `npm run build` after schema | Verified in this pass — JSON-LD inject + matching `sha256`; `connect-src 'none'` intact |
+| Production `npm run build` after schema | JSON-LD inject + matching `sha256`; `connect-src 'none'` intact |
 
 No keywords meta, analytics, Remotion, or CSP weakening.
