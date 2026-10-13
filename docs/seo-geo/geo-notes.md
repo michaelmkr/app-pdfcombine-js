@@ -27,8 +27,8 @@ Clarify “online”: the *app* is loaded from the web; *PDF contents* never upl
 | `public/sitemap.xml` | Single-URL sitemap for the live app |
 | `public/og-image.png` | Share / OG preview image (1200×630) |
 | On-page `GeoFaq` | Fact block + how steps + FAQ (what / why / how / limits) |
-| `src/lib/geoContent.ts` | Single source for on-page FAQ/facts (keep aligned with llms*.txt) |
-| `src/seo/structuredData.json` | WebApplication + WebSite + FAQPage JSON-LD |
+| `src/lib/geoContent.ts` | Single source for on-page FAQ/facts (keep aligned with llms*.txt + structuredData.json) |
+| `src/seo/structuredData.json` | WebApplication + WebSite + FAQPage JSON-LD (must match `GEO_FAQ`) |
 | Vite CSP plugin | Injects JSON-LD with `script-src` **sha256** allowlist — CSP stays strict (`connect-src 'none'`) |
 | `index.html` meta | `lang="de"`, author, canonical, hreflang, Open Graph / Twitter, llms alternate |
 | Footer + FAQ links | Discoverability of `/llms.txt` and `/llms-full.txt` |
