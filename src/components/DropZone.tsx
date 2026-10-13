@@ -62,8 +62,8 @@ export function DropZone({ onFiles, disabled, compact }: DropZoneProps) {
         </p>
         <p className="dropzone__hint">
           {compact
-            ? 'or choose files / a folder'
-            : 'Your merge queue is empty. Choose files or a folder to get started.'}
+            ? 'or pick files or a folder — nothing is uploaded'
+            : 'Nothing here yet. Pick files or a folder to start. Your PDFs stay on this computer.'}
         </p>
       </div>
       <div className="dropzone__actions">
@@ -80,7 +80,7 @@ export function DropZone({ onFiles, disabled, compact }: DropZoneProps) {
           className="btn btn--secondary"
           disabled={disabled}
           onClick={() => folderInputRef.current?.click()}
-          title="Select a folder (Chrome / Edge)"
+          title="Pick a whole folder (works best in Chrome or Edge)"
         >
           Choose folder
         </button>

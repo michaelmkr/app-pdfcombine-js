@@ -35,8 +35,8 @@ export function TrustHero() {
   return (
     <section className="trust-hero" aria-label="Datenschutz und Funktionsweise">
       <p className="trust-hero__lead">
-        Dateien bleiben hier. Der Server sieht nur die Website — Zusammenfügen
-        läuft ausschließlich in Ihrem Browser.
+        Zusammenfügen ohne Upload — Dateien bleiben auf Ihrem Computer.
+        Andere Tools schicken Ihre Dokumente auf ihre Server. Dieses nicht.
       </p>
 
       <div className="trust-hero__strip" role="list">
@@ -46,7 +46,7 @@ export function TrustHero() {
           </span>
           <div className="trust-hero__claim-text">
             <strong>Kein Upload</strong>
-            <span>PDFs verlassen dieses Gerät nicht</span>
+            <span>Ihre PDFs verlassen diesen Computer nicht</span>
           </div>
         </div>
         <div className="trust-hero__claim" role="listitem">
@@ -54,8 +54,8 @@ export function TrustHero() {
             <IconMonitor />
           </span>
           <div className="trust-hero__claim-text">
-            <strong>Nur lokal</strong>
-            <span>Verarbeitung im Browser, kein Konto</span>
+            <strong>Alles hier</strong>
+            <span>Zusammenfügen nur auf Ihrem Gerät — kein Konto</span>
           </div>
         </div>
         <div className="trust-hero__claim" role="listitem">
@@ -63,8 +63,8 @@ export function TrustHero() {
             <IconOffline />
           </span>
           <div className="trust-hero__claim-text">
-            <strong>Offline tauglich</strong>
-            <span>Nach dem Laden ohne Netz nutzbar</span>
+            <strong>Auch ohne Netz</strong>
+            <span>Seite einmal laden — dann geht’s offline weiter</span>
           </div>
         </div>
       </div>

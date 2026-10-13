@@ -54,7 +54,7 @@ export async function mergePdfs(
 ): Promise<Blob> {
   const refs = expandMergeItems(items, docsById)
   if (refs.length === 0) {
-    throw new Error('Nothing to merge.')
+    throw new Error('Nothing to combine. Add at least one PDF.')
   }
 
   const merged = await PDFDocument.create()

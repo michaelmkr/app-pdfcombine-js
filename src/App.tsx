@@ -79,7 +79,7 @@ export default function App() {
     setSkipped([])
     const list = Array.from(files)
     if (list.length === 0) {
-      setError('No PDF files selected.')
+      setError('No PDF files selected. Choose PDF files to continue.')
       return
     }
     setStatus({ phase: 'loading', current: 0, total: list.length })
@@ -95,8 +95,8 @@ export default function App() {
         setLastAddedCount(0)
         setError(
           skippedFiles.length > 0
-            ? 'No valid PDFs found. Encrypted or corrupt files are skipped.'
-            : 'No PDF files selected.',
+            ? 'No usable PDFs found. Password-protected or damaged files were skipped.'
+            : 'No PDF files selected. Choose PDF files to continue.',
         )
         return
       }
@@ -109,7 +109,7 @@ export default function App() {
       setSkipped(skippedFiles)
       setLastAddedCount(loaded.length)
     } catch {
-      setError('Failed to read one or more files.')
+      setError('Could not open one or more files. Try different PDFs.')
     } finally {
       setStatus({ phase: 'idle' })
     }
@@ -331,10 +331,12 @@ export default function App() {
       }
     } catch (err) {
       const message =
-        err instanceof Error ? err.message : 'Merge failed. Try fewer or different PDFs.'
+        err instanceof Error
+          ? err.message
+          : 'Could not combine these PDFs. Try fewer files or different ones.'
       setError(
         /encrypted|password/i.test(message)
-          ? 'One or more PDFs are password-protected and cannot be merged.'
+          ? 'One or more PDFs need a password and cannot be combined here.'
           : message,
       )
     } finally {
@@ -351,9 +353,9 @@ export default function App() {
       <div className="app__atmosphere" aria-hidden="true" />
 
       <header className="app__header">
-        <p className="app__eyebrow">Michael Macher · lokal</p>
+        <p className="app__eyebrow">von Michael Macher</p>
         <h1>
-          Local PDF <span className="app__accent">Combiner</span>
+          PDF <span className="app__accent">lokal</span>
         </h1>
         <TrustHero />
       </header>

@@ -164,7 +164,7 @@ export function PdfTile({
               onExpand(item.id)
             }}
           >
-            Expand {doc?.pageCount} pages
+            Show {doc?.pageCount} pages
           </button>
         ) : null}
       </div>

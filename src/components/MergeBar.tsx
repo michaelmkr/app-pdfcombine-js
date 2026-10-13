@@ -34,7 +34,7 @@ export function MergeBar({
   const ratio = progressRatio(status)
 
   return (
-    <section className="merge-bar" aria-label="Merge and download">
+    <section className="merge-bar" aria-label="Merge PDFs">
       {ratio != null ? (
         <div
           className="merge-bar__progress"
@@ -75,7 +75,7 @@ export function MergeBar({
           <div className="merge-bar__controls">
             <div className="merge-bar__field">
               <label className="merge-bar__label" htmlFor="output-filename">
-                Output filename
+                Save as
               </label>
               <input
                 id="output-filename"
@@ -94,7 +94,7 @@ export function MergeBar({
               disabled={!canMerge || busy}
               onClick={onMerge}
             >
-              {busy ? busyButtonLabel(status) : 'Merge & download'}
+              {busy ? busyButtonLabel(status) : 'Merge PDFs'}
             </button>
           </div>
         </div>

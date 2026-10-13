@@ -62,10 +62,10 @@ export function PdfList({
   const totalPages = countMergePages(items, docsById)
 
   return (
-    <section className="pdf-list" aria-label="PDF merge order">
+    <section className="pdf-list" aria-label="Your PDFs">
       <div className="pdf-list__header">
         <h2>
-          Merge order
+          Your PDFs
           <span className="pdf-list__count">
             {fileCount} {fileCount === 1 ? 'file' : 'files'} · {items.length}{' '}
             {items.length === 1 ? 'item' : 'items'} · {totalPages}{' '}

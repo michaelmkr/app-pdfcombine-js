@@ -1,18 +1,18 @@
-# Local PDF Combiner
+# PDF lokal
 
-Merge multiple PDF files into one document — entirely in your browser. Your files are never uploaded; all processing happens on your device.
+Combine several PDFs into one file — on your computer. Your documents are never uploaded. Other online tools send your files to their servers; this one does not.
 
 **Live app:** [http://combinepdf.makertechnologies.at/](http://combinepdf.makertechnologies.at/)
 
-**Language:** German trust/privacy copy (top + bottom banners, Impressum); English tool UI (buttons, errors, workspace).
+**Language:** German trust/privacy copy (hero + footer, Impressum); English tool UI (buttons, errors, workspace).
 
 ## Privacy & security
 
-- **No uploads.** PDFs are read and merged in the browser only. There is no upload API and no server-side PDF processing.
-- **Client-side libraries.** Merging uses [pdf-lib](https://pdf-lib.js.org/); thumbnails use [PDF.js](https://mozilla.github.io/pdf.js/) with a bundled worker (no third-party CDN).
-- **Hardened production CSP.** The built app sets `connect-src 'none'`, which blocks `fetch` / XHR / WebSockets — so the page cannot upload your files even by accident.
-- **Static hosting.** A deployed instance only serves HTML, CSS, and JavaScript. Closing the tab clears in-memory file data.
-- **Local prefs only.** Last output filename lives in `localStorage`; Chromium may remember the last save folder via IndexedDB (`FileSystemHandle`). Nothing is sent to a server.
+- **No uploads.** PDFs are opened and combined only on your device. Nothing is sent to a server for processing.
+- **Libraries stay with the app.** Combining uses [pdf-lib](https://pdf-lib.js.org/); previews use [PDF.js](https://mozilla.github.io/pdf.js/) with a bundled worker (no third-party CDN).
+- **Extra protection in production.** The built app blocks network requests from the page, so your files cannot be uploaded even by accident.
+- **Simple hosting.** A deployed instance only serves the website files (HTML, CSS, JavaScript). Closing the tab clears the PDFs from memory.
+- **Local prefs only.** Last save name lives in `localStorage`; Chromium may remember the last save folder via IndexedDB. Nothing is sent to a server.
 
 Impressum: [https://michaelmacher.com/imprint](https://michaelmacher.com/imprint)
 
@@ -22,28 +22,28 @@ After you add PDFs you may see many entries. That is **not** your PDFs leaving t
 
 | What you see | What it actually is |
 |--------------|---------------------|
-| `blob:https://…` (JPEG, ~0 kB) | Local in-memory thumbnail URLs (`URL.createObjectURL`). Same-origin appearance only; no upload. |
-| `pdf.worker…` (often 304 / cached) | The app’s own PDF.js worker script from Coolify, not your document bytes. |
+| `blob:https://…` (JPEG, ~0 kB) | Local preview images kept in memory on your computer — not an upload. |
+| `pdf.worker…` (often 304 / cached) | The app’s own helper script from the host, not your document bytes. |
 | Chrome extension scripts | Browser extensions — unrelated to this app. |
 
-The only normal network use is **downloading the app** (HTML/JS/CSS) when you open the site. Your PDF bytes never leave the browser.
+The only normal network use is **downloading the app** (HTML/JS/CSS) when you open the site. Your PDF bytes never leave your computer.
 
 ## How to use
 
 1. Open [https://combinepdf.makertechnologies.at/](http://combinepdf.makertechnologies.at/) (or run the app locally — see below).
 2. Drop PDFs anywhere on the page, or use **Choose files** / **Choose folder**.
-3. Drag tiles in the gallery to set merge order. Use **Expand pages** to reorder or drop individual pages. Multi-select with click / Shift / Cmd-Ctrl; Delete removes the selection.
-4. Optionally set an output filename (remembered locally), then merge and download (or use Save As where the browser supports it).
+3. Drag tiles to set the order. Use **Show pages** to reorder or drop individual pages. Multi-select with click / Shift / Cmd-Ctrl; Delete removes the selection.
+4. Optionally set a save name (remembered on this computer), then **Merge PDFs** (or use Save As where the browser supports it).
 
 ## Features
 
-- **Drop anywhere** — drag PDFs onto the page (full-window drop target)
-- **Gallery reorder** — drag-and-drop tiles (whole files or expanded pages)
-- **Page expand** — split a file into sortable page tiles with lazy thumbnails
+- **Drop anywhere** — drag PDFs onto the page
+- **Reorder freely** — drag tiles (whole files or single pages)
+- **Show pages** — split a file into sortable page tiles with lazy previews
 - **Bulk select** — Shift/Cmd-Ctrl selection, keyboard shortcuts, remove selected
 - **Remember prefs** — last filename; Chromium Save As folder when permitted
-- **Clear feedback** — progress for load / thumbnails / merge / save; structured encrypted/corrupt warnings
-- **Download / Save As** — File System Access API when available; otherwise a classic download
+- **Clear feedback** — progress for open / previews / combine / save; clear warnings for password-protected or damaged files
+- **Download / Save As** — save picker when the browser supports it; otherwise a normal download
 - Multi-file and folder selection (folder pick where the browser supports it)
 
 ## Run locally
@@ -66,7 +66,7 @@ Optional: `npm run preview` to preview the production build with Vite.
 
 ## Deploy (Coolify / Nixpacks)
 
-This app is a **static SPA**. Prefer Coolify’s **static site** mode so Caddy serves `dist/` (no Node process at runtime).
+This app is a **static website** (no server-side PDF work). Prefer Coolify’s **static site** mode so Caddy serves `dist/` (no Node process at runtime).
 
 Suggested Coolify settings:
 

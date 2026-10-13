@@ -9,9 +9,9 @@ type WarningListProps = {
 function skipReasonMessage(reason: SkipReason): string {
   switch (reason) {
     case 'encrypted':
-      return 'password-protected. This tool cannot open encrypted PDFs.'
+      return 'needs a password. Password-protected PDFs cannot be opened here.'
     case 'corrupt':
-      return 'could not be read (corrupt or unsupported).'
+      return 'could not be opened (damaged or not supported).'
     case 'not-pdf':
       return 'is not a PDF file.'
   }

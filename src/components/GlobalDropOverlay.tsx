@@ -95,7 +95,9 @@ export function GlobalDropOverlay({ onFiles, disabled }: GlobalDropOverlayProps)
     <div className="global-drop" role="presentation" aria-hidden="true">
       <div className="global-drop__panel">
         <p className="global-drop__title">Drop to add</p>
-        <p className="global-drop__hint">Files stay on this device — never uploaded</p>
+        <p className="global-drop__hint">
+          Your files stay on this computer — nothing is uploaded
+        </p>
       </div>
     </div>
   )

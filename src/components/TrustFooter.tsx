@@ -5,7 +5,7 @@ export function TrustFooter() {
     <footer className="trust-footer" aria-label="Datenschutzhinweis">
       <p className="trust-footer__text">
         <span className="trust-footer__mark" aria-hidden="true" />
-        Client-only · kein Upload · kein Konto
+        Kein Upload · Dateien bleiben auf Ihrem Computer · kein Konto
         {' · '}
         <a href={IMPRINT_URL} target="_blank" rel="noopener noreferrer">
           Impressum

@@ -6,18 +6,18 @@ export function statusMessage(status: AppStatus): string | null {
     case 'idle':
       return null
     case 'loading':
-      return `Reading PDF ${status.current}/${status.total}…`
+      return `Opening PDF ${status.current} of ${status.total}…`
     case 'thumbs':
-      return 'Rendering page thumbnails…'
+      return 'Creating page previews…'
     case 'merging': {
       const pct =
         status.total > 0
           ? Math.round((status.current / status.total) * 100)
           : 0
-      return `Merging page ${status.current}/${status.total}… (${pct}%)`
+      return `Combining page ${status.current} of ${status.total}… (${pct}%)`
     }
     case 'saving':
-      return 'Saving…'
+      return 'Saving your PDF…'
   }
 }
 
@@ -25,15 +25,15 @@ export function statusMessage(status: AppStatus): string | null {
 export function busyButtonLabel(status: AppStatus): string {
   switch (status.phase) {
     case 'loading':
-      return 'Reading…'
+      return 'Opening…'
     case 'thumbs':
-      return 'Thumbnails…'
+      return 'Previews…'
     case 'merging':
-      return 'Merging…'
+      return 'Combining…'
     case 'saving':
       return 'Saving…'
     default:
-      return 'Merge & download'
+      return 'Merge PDFs'
   }
 }
 
