@@ -29,8 +29,8 @@
   --merge-bar-space: 5.75rem;
   --page-pad-x: clamp(1rem, 2.5vw, 2rem);
   --page-pad-top: clamp(1.5rem, 3vw, 2.5rem);
-  /* Gallery nearly full-bleed; thumb-width side margins only */
-  --gallery-pad-x: clamp(0.5rem, 1vw, 1rem);
+  /* Gallery nearly full-bleed; mini side gutters (~3% vw each) */
+  --gallery-pad-x: max(0.75rem, 3vw);
   --warn: #8a5a00;
   --warn-bg: #fbf3e0;
   --warn-border: #e6d4a8;
@@ -1186,7 +1186,7 @@ input {
     --merge-bar-space: 12.75rem;
     --page-pad-x: 1rem;
     --page-pad-top: 1.35rem;
-    --gallery-pad-x: 0.5rem;
+    --gallery-pad-x: max(0.75rem, 3vw);
   }
 
   .app__header h1 {
