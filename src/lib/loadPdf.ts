@@ -1,5 +1,5 @@
 import { PDFDocument } from 'pdf-lib'
-import type { PdfDocument } from '../types'
+import type { PdfDocument, SkipReason, SkippedFile } from '../types'
 import { renderFirstPageThumbnail, revokeThumbnail } from './thumbnail'
 
 function isPdfFile(file: File): boolean {
@@ -11,9 +11,19 @@ function newId(): string {
   return crypto.randomUUID()
 }
 
-/** Read a File into a PdfDocument (bytes + page count + thumbnail). Skips non-PDFs. */
-export async function loadPdfFile(file: File): Promise<PdfDocument | null> {
-  if (!isPdfFile(file)) return null
+function classifyError(err: unknown): Exclude<SkipReason, 'not-pdf'> {
+  const msg = err instanceof Error ? err.message : String(err)
+  if (/encrypt|password/i.test(msg)) return 'encrypted'
+  return 'corrupt'
+}
+
+/** Read a File into a PdfDocument (bytes + page count + thumbnail). */
+export async function loadPdfFile(
+  file: File,
+): Promise<{ doc: PdfDocument } | { skipped: SkippedFile }> {
+  if (!isPdfFile(file)) {
+    return { skipped: { name: file.name, reason: 'not-pdf' } }
+  }
 
   const bytes = await file.arrayBuffer()
   try {
@@ -21,49 +31,69 @@ export async function loadPdfFile(file: File): Promise<PdfDocument | null> {
       ignoreEncryption: false,
     })
     const thumbnailUrl = await renderFirstPageThumbnail(bytes)
+    const pageThumbs = new Map<number, string | null>()
+    pageThumbs.set(0, thumbnailUrl)
     return {
-      id: newId(),
-      name: file.name,
-      bytes,
-      pageCount: pdf.getPageCount(),
-      sizeBytes: file.size,
-      thumbnailUrl,
+      doc: {
+        id: newId(),
+        name: file.name,
+        bytes,
+        pageCount: pdf.getPageCount(),
+        sizeBytes: file.size,
+        thumbnailUrl,
+        pageThumbs,
+      },
     }
-  } catch {
-    // Encrypted or corrupt PDF — skip rather than crash the batch.
-    console.warn(`Could not load PDF: ${file.name}`)
-    return null
+  } catch (err) {
+    console.warn(`Could not load PDF: ${file.name}`, err)
+    return { skipped: { name: file.name, reason: classifyError(err) } }
   }
 }
 
-/** Load multiple files; returns successfully parsed PDFs only. */
-export async function loadPdfFiles(files: FileList | File[]): Promise<{
+export type LoadProgress = { current: number; total: number }
+
+/** Load multiple files; returns successfully parsed PDFs and structured skips. */
+export async function loadPdfFiles(
+  files: FileList | File[],
+  onProgress?: (p: LoadProgress) => void,
+): Promise<{
   docs: PdfDocument[]
-  skipped: number
+  skipped: SkippedFile[]
 }> {
   const list = Array.from(files)
   const docs: PdfDocument[] = []
-  let skipped = 0
+  const skipped: SkippedFile[] = []
+  const total = list.length
 
-  for (const file of list) {
-    if (!isPdfFile(file)) {
-      skipped += 1
-      continue
-    }
-    const doc = await loadPdfFile(file)
-    if (doc) {
-      docs.push(doc)
+  for (let i = 0; i < list.length; i += 1) {
+    onProgress?.({ current: i + 1, total })
+    const file = list[i]!
+    const result = await loadPdfFile(file)
+    if ('doc' in result) {
+      docs.push(result.doc)
     } else {
-      skipped += 1
+      skipped.push(result.skipped)
     }
   }
 
   return { docs, skipped }
 }
 
+/** Revoke all cached thumbnails for documents (file + page thumbs). */
 export function revokeDocThumbnails(docs: PdfDocument[]): void {
   for (const doc of docs) {
-    revokeThumbnail(doc.thumbnailUrl)
+    const seen = new Set<string>()
+    if (doc.thumbnailUrl) {
+      revokeThumbnail(doc.thumbnailUrl)
+      seen.add(doc.thumbnailUrl)
+    }
+    for (const url of doc.pageThumbs.values()) {
+      if (url && !seen.has(url)) {
+        revokeThumbnail(url)
+        seen.add(url)
+      }
+    }
+    doc.pageThumbs.clear()
   }
 }
 
@@ -71,4 +101,15 @@ export function formatBytes(n: number): string {
   if (n < 1024) return `${n} B`
   if (n < 1024 * 1024) return `${(n / 1024).toFixed(1)} KB`
   return `${(n / (1024 * 1024)).toFixed(1)} MB`
+}
+
+export function skipReasonMessage(reason: SkipReason): string {
+  switch (reason) {
+    case 'encrypted':
+      return 'password-protected. This tool cannot open encrypted PDFs.'
+    case 'corrupt':
+      return 'could not be read (corrupt or unsupported).'
+    case 'not-pdf':
+      return 'is not a PDF file.'
+  }
 }

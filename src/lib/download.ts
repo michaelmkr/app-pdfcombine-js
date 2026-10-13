@@ -1,3 +1,5 @@
+import { getSaveStartInHandle, storeSaveHandles } from './prefs'
+
 /** Ensure filename ends with .pdf */
 export function ensurePdfExtension(name: string): string {
   const trimmed = name.trim() || 'combined.pdf'
@@ -7,15 +9,18 @@ export function ensurePdfExtension(name: string): string {
 /**
  * Save a PDF blob. Uses the File System Access API when available
  * (Chromium), otherwise falls back to a classic download link.
+ * Returns true if a file was written/downloaded, false if the user cancelled.
  */
-export async function savePdf(blob: Blob, filename: string): Promise<void> {
+export async function savePdf(blob: Blob, filename: string): Promise<boolean> {
   const name = ensurePdfExtension(filename)
 
   const picker = window.showSaveFilePicker
   if (typeof picker === 'function') {
     try {
+      const startIn = await getSaveStartInHandle()
       const handle = await picker.call(window, {
         suggestedName: name,
+        ...(startIn ? { startIn } : {}),
         types: [
           {
             description: 'PDF document',
@@ -26,11 +31,12 @@ export async function savePdf(blob: Blob, filename: string): Promise<void> {
       const writable = await handle.createWritable()
       await writable.write(blob)
       await writable.close()
-      return
+      await storeSaveHandles(handle)
+      return true
     } catch (err) {
       // User cancelled the picker — don't fall through to auto-download.
       if (err instanceof DOMException && err.name === 'AbortError') {
-        return
+        return false
       }
       // Unsupported / permission errors → classic download below.
     }
@@ -45,4 +51,5 @@ export async function savePdf(blob: Blob, filename: string): Promise<void> {
   a.click()
   a.remove()
   URL.revokeObjectURL(url)
+  return true
 }

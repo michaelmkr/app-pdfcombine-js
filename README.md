@@ -4,12 +4,17 @@ Merge multiple PDF files into one document — entirely in your browser. Your fi
 
 **Live app:** [http://combinepdf.makertechnologies.at/](http://combinepdf.makertechnologies.at/)
 
+**Language:** German trust/privacy copy (top + bottom banners, Impressum); English tool UI (buttons, errors, workspace).
+
 ## Privacy & security
 
 - **No uploads.** PDFs are read and merged in the browser only. There is no upload API and no server-side PDF processing.
-- **Client-side libraries.** Merging uses [pdf-lib](https://pdf-lib.js.org/); first-page thumbnails use [PDF.js](https://mozilla.github.io/pdf.js/) with a bundled worker (no third-party CDN).
+- **Client-side libraries.** Merging uses [pdf-lib](https://pdf-lib.js.org/); thumbnails use [PDF.js](https://mozilla.github.io/pdf.js/) with a bundled worker (no third-party CDN).
 - **Hardened production CSP.** The built app sets `connect-src 'none'`, which blocks `fetch` / XHR / WebSockets — so the page cannot upload your files even by accident.
 - **Static hosting.** A deployed instance only serves HTML, CSS, and JavaScript. Closing the tab clears in-memory file data.
+- **Local prefs only.** Last output filename lives in `localStorage`; Chromium may remember the last save folder via IndexedDB (`FileSystemHandle`). Nothing is sent to a server.
+
+Impressum: [https://michaelmacher.com/imprint](https://michaelmacher.com/imprint)
 
 ### About the browser Network tab
 
@@ -27,17 +32,19 @@ The only normal network use is **downloading the app** (HTML/JS/CSS) when you op
 
 1. Open [https://combinepdf.makertechnologies.at/](http://combinepdf.makertechnologies.at/) (or run the app locally — see below).
 2. Drop PDFs anywhere on the page, or use **Choose files** / **Choose folder**.
-3. Drag tiles in the gallery to set merge order. Remove individual files or clear the list as needed.
-4. Optionally set an output filename, then merge and download (or use Save As where the browser supports it).
+3. Drag tiles in the gallery to set merge order. Use **Expand pages** to reorder or drop individual pages. Multi-select with click / Shift / Cmd-Ctrl; Delete removes the selection.
+4. Optionally set an output filename (remembered locally), then merge and download (or use Save As where the browser supports it).
 
 ## Features
 
 - **Drop anywhere** — drag PDFs onto the page (full-window drop target)
-- **Gallery reorder** — drag-and-drop tiles to control page order in the merged file
-- **Thumbnails** — first-page previews for each document
+- **Gallery reorder** — drag-and-drop tiles (whole files or expanded pages)
+- **Page expand** — split a file into sortable page tiles with lazy thumbnails
+- **Bulk select** — Shift/Cmd-Ctrl selection, keyboard shortcuts, remove selected
+- **Remember prefs** — last filename; Chromium Save As folder when permitted
+- **Clear feedback** — progress for load / thumbnails / merge / save; structured encrypted/corrupt warnings
 - **Download / Save As** — File System Access API when available; otherwise a classic download
 - Multi-file and folder selection (folder pick where the browser supports it)
-- Skip encrypted or unreadable PDFs without aborting the rest of the batch
 
 ## Run locally
 

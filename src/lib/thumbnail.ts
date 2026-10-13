@@ -5,13 +5,13 @@ import { ensurePdfWorker } from './pdfWorker'
 const THUMB_WIDTH = 140
 
 /**
- * Render the first page of a PDF to a blob URL thumbnail.
- * Uses a copy of `bytes` so pdf.js cannot transfer ownership of the merge buffer.
- * All work is in-memory; no network fetches (fonts/cmaps/wasm URLs unset).
- * Returns null on failure (caller should show a placeholder).
+ * Render a PDF page to a blob URL thumbnail.
+ * `pageIndex` is 0-based. Uses a copy of `bytes` so pdf.js cannot transfer
+ * ownership of the merge buffer. Returns null on failure.
  */
-export async function renderFirstPageThumbnail(
+export async function renderPageThumbnail(
   bytes: ArrayBuffer,
+  pageIndex = 0,
 ): Promise<string | null> {
   ensurePdfWorker()
   try {
@@ -24,7 +24,12 @@ export async function renderFirstPageThumbnail(
       // Do not set cMapUrl / standardFontDataUrl / wasmUrl — those would fetch remotely.
     })
     const pdf = await loadingTask.promise
-    const page = await pdf.getPage(1)
+    const pageNumber = pageIndex + 1
+    if (pageNumber < 1 || pageNumber > pdf.numPages) {
+      await pdf.cleanup()
+      return null
+    }
+    const page = await pdf.getPage(pageNumber)
 
     const base = page.getViewport({ scale: 1 })
     const scale = THUMB_WIDTH / base.width
@@ -52,6 +57,13 @@ export async function renderFirstPageThumbnail(
     console.warn('Thumbnail render failed', err)
     return null
   }
+}
+
+/** Convenience: first-page thumbnail. */
+export async function renderFirstPageThumbnail(
+  bytes: ArrayBuffer,
+): Promise<string | null> {
+  return renderPageThumbnail(bytes, 0)
 }
 
 export function revokeThumbnail(url: string | null | undefined): void {

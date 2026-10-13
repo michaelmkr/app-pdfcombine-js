@@ -1,3 +1,4 @@
+import type { MouseEvent } from 'react'
 import {
   DndContext,
   closestCenter,
@@ -12,18 +13,36 @@ import {
   sortableKeyboardCoordinates,
   rectSortingStrategy,
 } from '@dnd-kit/sortable'
-import type { PdfDocument } from '../types'
+import type { MergeItem, PdfDocument } from '../types'
+import { countMergePages } from '../lib/mergePdfs'
 import { PdfTile } from './PdfTile'
+import { SelectionToolbar } from './SelectionToolbar'
 
 type PdfListProps = {
-  docs: PdfDocument[]
+  items: MergeItem[]
+  docsById: Record<string, PdfDocument>
+  selectedIds: Set<string>
   onReorder: (activeId: string, overId: string) => void
   onRemove: (id: string) => void
   onClear: () => void
+  onExpand: (id: string) => void
+  onSelect: (id: string, event: MouseEvent) => void
+  onRemoveSelected: () => void
   disabled?: boolean
 }
 
-export function PdfList({ docs, onReorder, onRemove, onClear, disabled }: PdfListProps) {
+export function PdfList({
+  items,
+  docsById,
+  selectedIds,
+  onReorder,
+  onRemove,
+  onClear,
+  onExpand,
+  onSelect,
+  onRemoveSelected,
+  disabled,
+}: PdfListProps) {
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
     useSensor(KeyboardSensor, {
@@ -37,13 +56,14 @@ export function PdfList({ docs, onReorder, onRemove, onClear, disabled }: PdfLis
     onReorder(String(active.id), String(over.id))
   }
 
-  if (docs.length === 0) {
+  if (items.length === 0) {
     return (
       <p className="pdf-list__empty">No PDFs added yet. Drop or choose files above.</p>
     )
   }
 
-  const totalPages = docs.reduce((sum, d) => sum + d.pageCount, 0)
+  const fileCount = new Set(items.map((i) => i.docId)).size
+  const totalPages = countMergePages(items, docsById)
 
   return (
     <section className="pdf-list" aria-label="PDF merge order">
@@ -51,7 +71,8 @@ export function PdfList({ docs, onReorder, onRemove, onClear, disabled }: PdfLis
         <h2>
           Merge order
           <span className="pdf-list__count">
-            {docs.length} {docs.length === 1 ? 'file' : 'files'} · {totalPages}{' '}
+            {fileCount} {fileCount === 1 ? 'file' : 'files'} · {items.length}{' '}
+            {items.length === 1 ? 'item' : 'items'} · {totalPages}{' '}
             {totalPages === 1 ? 'page' : 'pages'}
           </span>
         </h2>
@@ -64,22 +85,33 @@ export function PdfList({ docs, onReorder, onRemove, onClear, disabled }: PdfLis
           Clear all
         </button>
       </div>
+
+      <SelectionToolbar
+        selectedCount={selectedIds.size}
+        onRemoveSelected={onRemoveSelected}
+        disabled={disabled}
+      />
+
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
         onDragEnd={handleDragEnd}
       >
         <SortableContext
-          items={docs.map((d) => d.id)}
+          items={items.map((d) => d.id)}
           strategy={rectSortingStrategy}
         >
           <ul className="pdf-list__grid">
-            {docs.map((doc, index) => (
+            {items.map((item, index) => (
               <PdfTile
-                key={doc.id}
-                doc={doc}
+                key={item.id}
+                item={item}
+                doc={docsById[item.docId]}
                 index={index}
+                selected={selectedIds.has(item.id)}
                 onRemove={onRemove}
+                onExpand={onExpand}
+                onSelect={onSelect}
                 disabled={disabled}
               />
             ))}

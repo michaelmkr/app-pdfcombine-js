@@ -6,6 +6,34 @@ export type PdfDocument = {
   bytes: ArrayBuffer
   pageCount: number
   sizeBytes: number
-  /** Object URL of a JPEG first-page thumbnail, or null if render failed. */
+  /** First-page thumbnail for file tiles (also cached as page 0). */
   thumbnailUrl: string | null
+  /** Per-page thumbnail object URLs (0-based page index). */
+  pageThumbs: Map<number, string | null>
 }
+
+/** One entry in the ordered merge gallery — a whole file or a single page. */
+export type MergeItem = {
+  id: string
+  docId: string
+  kind: 'file' | 'page'
+  /** 0-based page index when kind === 'page'. */
+  pageIndex?: number
+  thumbnailUrl: string | null
+  /** True while a lazy page thumbnail is rendering. */
+  thumbLoading?: boolean
+}
+
+export type SkipReason = 'encrypted' | 'corrupt' | 'not-pdf'
+
+export type SkippedFile = {
+  name: string
+  reason: SkipReason
+}
+
+export type AppStatus =
+  | { phase: 'idle' }
+  | { phase: 'loading'; current: number; total: number }
+  | { phase: 'thumbs' }
+  | { phase: 'merging'; current: number; total: number }
+  | { phase: 'saving' }
