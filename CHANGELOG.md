@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Round 2 SEO follow-up: verified production JSON-LD inject + matching CSP sha256; README discoverability links confirmed; author `sameAs` deferred (no GitHub URL in README); notes in `docs/seo-geo/seo-notes.md`
 - GEO Round 2: expanded `<noscript>` what/why/how/limits; `geo-notes.md` Round 2 follow-up subsection
 - SEO i18n re-audit: `seo-notes.md` documents single-URL SPA + client DE/EN switch (DE shell primary; `hreflang` `de` + `x-default` only); bilingual FAQPage + bilingual `<noscript>`; client `og:locale` / image-alt updates with locale
+- Controller SEO/GEO **i18n round**: conflict merge (no same-URL `hreflang="en"`; DE shell + bilingual FAQ/llms/noscript accepted); mixed DE/EN product claims purged; `docs/seo-geo/controller-log.md` Round 3
 
 ### Fixed
 

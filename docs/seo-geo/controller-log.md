@@ -89,3 +89,45 @@
 - Automated sync lint for geoContent ↔ llms ↔ structuredData
 - Author `sameAs` / Search Console (non-tracking)
 - External links/authority for competitive “merge PDF” rankings (see Reality check)
+
+---
+
+## Round 3 — i18n (post-`2c7715e`)
+
+**Trigger:** Full DE/EN UI i18n landed (`2c7715e`). Prior notes still framed “German trust + English chrome”; product no longer mixes languages on one screen.
+
+### Specialist catch-ups
+
+| Agent | Commit(s) | Outcome |
+|-------|-----------|---------|
+| SEO i18n catch-up | `beb9edc` (+ re-audit `894ca86`) | `seo-notes.md` i18n model; drop mixed-language framing; **no** same-URL `hreflang="en"`; DE shell primary; client meta/`og:locale` follow locale |
+| GEO i18n catch-up | `beb9edc` / tip tweak `52eca55` | `llms*.txt` bilingual facts + LanguageSwitcher; DE+EN FAQPage (`inLanguage`); on-page `geo.*` in i18n; bilingual `<noscript>`; DE „PDFs zusammenfügen“ label aligned |
+
+### Conflict merge (controller)
+
+| Topic | SEO lean | GEO lean | Decision |
+|-------|----------|----------|----------|
+| Same-URL `hreflang="en"` | Forbidden (implies distinct EN doc) | Prefer honest EN discovery without fake URL | **No `hreflang="en"`.** Keep `de` + `x-default` only. |
+| DE shell vs bilingual FAQ/noscript/llms | SERP stays DE-primary | Citeability wants DE+EN | **Accept tension.** One URL; schema/`llms`/noscript bilingual with `inLanguage` / `lang`; crawlers still see DE meta. |
+| On-page GEO source of truth | — | i18n `geo.*` | **`src/i18n/{de,en}.ts` (`geo.*`)**; `geoContent.ts` = live URL constant only. |
+| Mixed DE trust / EN tools docs | Purge | Purge | **Purged** from current docs/llms/product claims. CHANGELOG `[1.0.0]` historical line kept as shipped-at-release fact. |
+
+### Controller consistency pass
+
+- README: full UI i18n + switcher documented; discoverability links intact
+- CHANGELOG `[Unreleased]`: i18n + SEO/GEO catch-up bullets present
+- Local `npm run build`: JSON-LD injected; CSP `sha256` matches body; `connect-src 'none'`; no `unsafe-inline` on `script-src`; no `hreflang="en"`; bilingual noscript present
+- Claim guardrails unchanged (nicht zertifiziert; PolyForm NC ≠ OSI Open Source; encrypted PDFs unsupported)
+
+### Still backlog (unchanged honesty)
+
+- Full static FAQ prerender beyond bilingual noscript
+- Automated sync lint: i18n `geo.*` ↔ `llms*.txt` ↔ `structuredData.json`
+- Author `sameAs` / Search Console (non-tracking)
+- Real EN URL only if a distinct crawlable EN document ships
+- External authority for competitive merge-PDF rankings (see Reality check)
+
+### Findability verdict (with i18n)
+
+**Go** for privacy / no-upload / brand navigational findability and bilingual citeability on one URL.  
+**No-go** for guaranteeing #1 on competitive “PDF zusammenfügen” / “merge PDF” head terms (authority still external).
