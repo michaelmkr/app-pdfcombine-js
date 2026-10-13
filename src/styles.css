@@ -22,11 +22,13 @@
   --shadow-lg: 0 8px 32px rgb(26 26 26 / 10%);
   --font: 'Montserrat', system-ui, -apple-system, sans-serif;
   --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  --tile-min: 156px;
+  /* Dense tile boards: fluid min so ultrawide gets many columns; phones stay ~2–3 */
+  --tile-min: clamp(120px, 11vw, 180px);
   --content-max: min(1400px, 96vw);
   --merge-bar-space: 5.75rem;
   --page-pad-x: clamp(1rem, 2.5vw, 2rem);
   --page-pad-top: clamp(1.5rem, 3vw, 2.5rem);
+  --board-pad-x: clamp(1rem, 1.5vw, 1.5rem);
   --warn: #8a5a00;
   --warn-bg: #fbf3e0;
   --warn-border: #e6d4a8;
@@ -111,6 +113,13 @@ input {
 .app--empty {
   /* Fill viewport: header + hero stage + compact footer above merge bar */
   min-height: 100dvh;
+}
+
+/* Filled board: near-full viewport width — fill horizontally before scrolling */
+.app--filled {
+  width: 100%;
+  max-width: none;
+  --page-pad-x: var(--board-pad-x);
 }
 
 .app__atmosphere {
@@ -755,7 +764,7 @@ input {
   padding: 0;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--tile-min), 1fr));
-  gap: 0.85rem;
+  gap: clamp(0.65rem, 1vw, 0.85rem);
 }
 
 .pdf-tile {
@@ -1000,6 +1009,12 @@ input {
   box-sizing: border-box;
 }
 
+/* Align merge bar with full-width gallery when files are loaded */
+.app--filled .merge-bar__inner {
+  width: 100%;
+  max-width: none;
+}
+
 .merge-bar__row {
   display: flex;
   flex-wrap: wrap;
@@ -1124,7 +1139,7 @@ input {
 @media (max-width: 720px) {
   :root {
     --merge-bar-space: 11.5rem;
-    --tile-min: 148px;
+    --tile-min: clamp(120px, 28vw, 160px);
   }
 
   .trust-hero__strip {
@@ -1186,10 +1201,11 @@ input {
   }
 
   :root {
-    --tile-min: 136px;
+    --tile-min: clamp(120px, 42vw, 150px);
     --merge-bar-space: 12.75rem;
     --page-pad-x: 1rem;
     --page-pad-top: 1.35rem;
+    --board-pad-x: 1rem;
   }
 
   .app__header h1 {
