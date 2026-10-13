@@ -24,11 +24,13 @@
   --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
   /* Dense tile boards: fluid min so ultrawide gets many columns; phones stay ~2–3 */
   --tile-min: clamp(120px, 11vw, 180px);
+  /* One centered column for empty + filled (shell, header, main, merge-bar) */
   --content-max: min(1400px, 96vw);
   --merge-bar-space: 5.75rem;
   --page-pad-x: clamp(1rem, 2.5vw, 2rem);
   --page-pad-top: clamp(1.5rem, 3vw, 2.5rem);
-  --board-pad-x: clamp(1rem, 1.5vw, 1.5rem);
+  /* Gallery gutters when filled; ~2× former edge-hugging pad */
+  --board-pad-x: clamp(2rem, 3vw, 3rem);
   --warn: #8a5a00;
   --warn-bg: #fbf3e0;
   --warn-border: #e6d4a8;
@@ -115,10 +117,8 @@ input {
   min-height: 100dvh;
 }
 
-/* Filled board: near-full viewport width — fill horizontally before scrolling */
+/* Filled: keep the same centered --content-max as empty; roomier side gutters */
 .app--filled {
-  width: 100%;
-  max-width: none;
   --page-pad-x: var(--board-pad-x);
 }
 
@@ -1002,12 +1002,6 @@ input {
   box-sizing: border-box;
 }
 
-/* Align merge bar with full-width gallery when files are loaded */
-.app--filled .merge-bar__inner {
-  width: 100%;
-  max-width: none;
-}
-
 .merge-bar__row {
   display: flex;
   flex-wrap: wrap;
@@ -1191,7 +1185,7 @@ input {
     --merge-bar-space: 12.75rem;
     --page-pad-x: 1rem;
     --page-pad-top: 1.35rem;
-    --board-pad-x: 1rem;
+    --board-pad-x: 1.25rem;
   }
 
   .app__header h1 {
