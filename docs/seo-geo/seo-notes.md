@@ -80,7 +80,7 @@ Classic search / SERP / crawler notes (Google, Bing, social previews). For assis
 |-------|------|--------|
 | Canonical | `index.html` | Absolute live URL; trailing slash |
 | Robots | `public/robots.txt` | `Allow: /`; Sitemap absolute URL; comments for llms / OG |
-| Sitemap | `public/sitemap.xml` | Single URL; weekly changefreq |
+| Sitemap | `public/sitemap.xml` | Single URL; `lastmod` + weekly changefreq |
 | Hosting | Static SPA | No server redirects assumed; keep one canonical host |
 
 **Accuracy rules**
@@ -101,6 +101,8 @@ Classic search / SERP / crawler notes (Google, Bing, social previews). For assis
 | Piece | Source of truth | Published |
 |-------|-----------------|-----------|
 | Graph: `WebApplication` + `WebSite` + `FAQPage` | **`src/seo/structuredData.json`** | Injected into production `index.html` at build by `vite.config.ts` |
+
+Do not add a parallel `public/structured-data.json` unless it is generated from the same source — dual files drifted once.
 
 **Claims encoded in schema (must stay true)**
 
