@@ -2,8 +2,10 @@ import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import type { IncomingMessage, ServerResponse } from 'node:http'
 import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vite'
+import type { Connect } from 'vite'
 
 const rootDir = dirname(fileURLToPath(import.meta.url))
 const structuredData = readFileSync(
@@ -18,6 +20,50 @@ function sha256Source(body: string): string {
 
 const jsonLdHashSource = sha256Source(structuredData)
 const structuredDataScript = `<script type="application/ld+json">${structuredData}</script>`
+
+/**
+ * Ensure text/plain (and similar) public assets advertise UTF-8.
+ * Without charset, browsers may decode UTF-8 bytes as Latin-1 (mojibake).
+ */
+function utf8TextCharset(): Plugin {
+  const textExt = /\.(?:txt|xml|md|csv|json|svg)$/i
+
+  const middleware: Connect.NextHandleFunction = (
+    req: IncomingMessage,
+    res: ServerResponse,
+    next: Connect.NextFunction,
+  ) => {
+    const pathOnly = (req.url ?? '').split('?')[0] ?? ''
+    if (!textExt.test(pathOnly)) {
+      next()
+      return
+    }
+
+    const originalSetHeader = res.setHeader.bind(res)
+    res.setHeader = ((name: string, value: number | string | readonly string[]) => {
+      if (
+        name.toLowerCase() === 'content-type' &&
+        typeof value === 'string' &&
+        !/charset=/i.test(value)
+      ) {
+        value = `${value}; charset=utf-8`
+      }
+      return originalSetHeader(name, value)
+    }) as typeof res.setHeader
+
+    next()
+  }
+
+  return {
+    name: 'utf8-text-charset',
+    configureServer(server) {
+      server.middlewares.use(middleware)
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use(middleware)
+    },
+  }
+}
 
 /** Production-only CSP: block all fetch/XHR/WebSocket so PDFs cannot be uploaded. */
 function privacyCsp(): Plugin {
@@ -57,7 +103,7 @@ function privacyCsp(): Plugin {
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), privacyCsp()],
+  plugins: [react(), utf8TextCharset(), privacyCsp()],
   worker: {
     format: 'es',
   },
