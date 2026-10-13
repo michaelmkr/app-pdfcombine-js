@@ -233,3 +233,11 @@ Keep [`geo-notes.md`](./geo-notes.md) claim table and this file’s guardrails i
 5. Title/description: no “zertifiziert”; PolyForm/Open Source claims accurate if present
 6. TrustHero still trust-first (not a keyword list)
 7. No analytics scripts introduced
+
+---
+
+## Catch-up verification (2026-10-13)
+
+- Production build injects JSON-LD; CSP `script-src` sha256 matched the injected body in a local `npm run build` check.
+- No `public/structured-data.json` mirror (single source: `src/seo/structuredData.json`).
+- Keywords meta remains omitted; TrustHero stays trust-first; `<noscript>` covers minimal JS-off facts.
