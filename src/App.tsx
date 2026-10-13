@@ -355,7 +355,7 @@ export default function App() {
       <header className="app__header">
         <p className="app__eyebrow">von Michael Macher</p>
         <h1>
-          PDF <span className="app__accent">lokal</span>
+          PDF <span className="app__accent">Kombinierer</span>
         </h1>
         <TrustHero />
       </header>

@@ -1,6 +1,6 @@
-# PDF lokal
+# PDF Kombinierer
 
-Combine several PDFs into one file — on your computer. Your documents are never uploaded. Other online tools send your files to their servers; this one does not.
+**PDF Kombinierer** von Michael Macher — combine several PDFs into one file on your computer. Your documents are never uploaded. Other online tools send your files to their servers (sometimes including AI processing); this one does not.
 
 **Live app:** [http://combinepdf.makertechnologies.at/](http://combinepdf.makertechnologies.at/)
 
@@ -9,6 +9,8 @@ Combine several PDFs into one file — on your computer. Your documents are neve
 ## Privacy & security
 
 - **No uploads.** PDFs are opened and combined only on your device. Nothing is sent to a server for processing.
+- **DSGVO / GDPR-friendly.** Your files stay on your computer — no cloud processing, no data handed to our servers. Suitable for sensitive or personal documents. (Not a certification claim — just how the tool works.)
+- **No AI upload.** Merging runs in the browser only. There is no AI cloud processing of your PDFs. This is not an AI system and does not claim AI Act certification.
 - **Libraries stay with the app.** Combining uses [pdf-lib](https://pdf-lib.js.org/); previews use [PDF.js](https://mozilla.github.io/pdf.js/) with a bundled worker (no third-party CDN).
 - **Extra protection in production.** The built app blocks network requests from the page, so your files cannot be uploaded even by accident.
 - **Simple hosting.** A deployed instance only serves the website files (HTML, CSS, JavaScript). Closing the tab clears the PDFs from memory.

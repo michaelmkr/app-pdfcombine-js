@@ -20,12 +20,12 @@ function IconMonitor() {
   )
 }
 
-function IconOffline() {
+function IconNoAi() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
       <path
         fill="currentColor"
-        d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm0 2a7 7 0 0 1 6.32 4H5.68A7 7 0 0 1 12 5zm-7 7h14a7 7 0 0 1-14 0z"
+        d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 0 1 6.32 12.9L7.1 5.68A7.96 7.96 0 0 1 12 4zM4 12a8 8 0 0 1 1.68-4.9l11.22 11.22A8 8 0 0 1 4 12z"
       />
     </svg>
   )
@@ -35,8 +35,10 @@ export function TrustHero() {
   return (
     <section className="trust-hero" aria-label="Datenschutz und Funktionsweise">
       <p className="trust-hero__lead">
-        Zusammenfügen ohne Upload — Dateien bleiben auf Ihrem Computer.
-        Andere Tools schicken Ihre Dokumente auf ihre Server. Dieses nicht.
+        Zusammenfügen ohne Upload — dsgvo-freundlich. Ihre Dateien gehen nicht
+        an fremde Server; nichts wird in der Cloud verarbeitet. Andere
+        Online-Tools schicken PDFs oft an Server (manchmal inkl. KI) — hier
+        passiert das Zusammenfügen nur auf Ihrem Gerät, ohne KI-Upload.
       </p>
 
       <div className="trust-hero__strip" role="list">
@@ -45,8 +47,8 @@ export function TrustHero() {
             <IconLock />
           </span>
           <div className="trust-hero__claim-text">
-            <strong>Kein Upload</strong>
-            <span>Ihre PDFs verlassen diesen Computer nicht</span>
+            <strong>DSGVO-freundlich</strong>
+            <span>Keine Datenweitergabe an Server — gut für sensible Dokumente</span>
           </div>
         </div>
         <div className="trust-hero__claim" role="listitem">
@@ -54,17 +56,17 @@ export function TrustHero() {
             <IconMonitor />
           </span>
           <div className="trust-hero__claim-text">
-            <strong>Alles hier</strong>
-            <span>Zusammenfügen nur auf Ihrem Gerät — kein Konto</span>
+            <strong>Alles auf Ihrem Gerät</strong>
+            <span>Zusammenfügen nur lokal — kein Konto, kein Cloud-Upload</span>
           </div>
         </div>
         <div className="trust-hero__claim" role="listitem">
           <span className="trust-hero__icon" aria-hidden="true">
-            <IconOffline />
+            <IconNoAi />
           </span>
           <div className="trust-hero__claim-text">
-            <strong>Auch ohne Netz</strong>
-            <span>Seite einmal laden — dann geht’s offline weiter</span>
+            <strong>Kein KI-Upload</strong>
+            <span>Keine KI-Verarbeitung Ihrer PDFs — nur Zusammenfügen im Browser</span>
           </div>
         </div>
       </div>

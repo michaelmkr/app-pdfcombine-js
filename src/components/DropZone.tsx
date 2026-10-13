@@ -62,8 +62,8 @@ export function DropZone({ onFiles, disabled, compact }: DropZoneProps) {
         </p>
         <p className="dropzone__hint">
           {compact
-            ? 'or pick files or a folder — nothing is uploaded'
-            : 'Nothing here yet. Pick files or a folder to start. Your PDFs stay on this computer.'}
+            ? 'or pick files or a folder — nothing uploaded, no AI cloud'
+            : 'Nothing here yet. Pick files or a folder to start. Your PDFs stay on this computer — no server upload, no AI processing.'}
         </p>
       </div>
       <div className="dropzone__actions">

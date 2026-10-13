@@ -96,7 +96,7 @@ export function GlobalDropOverlay({ onFiles, disabled }: GlobalDropOverlayProps)
       <div className="global-drop__panel">
         <p className="global-drop__title">Drop to add</p>
         <p className="global-drop__hint">
-          Your files stay on this computer — nothing is uploaded
+          Your files stay on this computer — no upload, no AI cloud
         </p>
       </div>
     </div>
